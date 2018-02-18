@@ -46,7 +46,7 @@
   </developers>
 
   <properties>
-    <spring.version>5.0.3.RELEASE</spring.version>
+    <spring.version>4.3.13.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -96,6 +96,20 @@
       <artifactId>spring-jdbc</artifactId>
       <version>${spring.version}</version>
     </dependency>
+
+    <!-- Logback -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+
   </dependencies>
 
 
