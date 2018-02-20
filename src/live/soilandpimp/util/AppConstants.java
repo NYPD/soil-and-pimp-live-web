@@ -7,4 +7,5 @@ public class AppConstants {
     public static final String DEVELOPMENT_PROFILE = "DEVELOPMENT";
     public static final String TEST_PROFILE = "TEST";
     public static final String PRODUCTION_PROFILE = "PRODUCTION";
+    public static final String CASSANDRA_KEYSPACE = "soilandpimp";
 }

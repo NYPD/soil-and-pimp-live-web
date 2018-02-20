@@ -1,10 +1,8 @@
 package live.soilandpimp.configuration;
 
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
@@ -25,9 +23,6 @@ public class LogbackConfiguration {
     private final String encoderPattern = "%d{[yyyy-MM-dd HH:mm:ss.SSS]} [%-5level] \\(%F{0}:%M\\(\\):%L\\) - %msg%n";
     private final String filePattern = "/tomcat/logs/" + AppConstants.PROJECT_NAME + "/goddess.%d{yyyy-MM-dd}.log";
     private final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-
-    @Autowired
-    private Environment springEnvironment;
 
     @Bean
     @DevelopmentProfile
@@ -75,15 +70,11 @@ public class LogbackConfiguration {
         SMTPAppender smtpAppender = new SMTPAppender();
         smtpAppender.setContext(loggerContext);
         smtpAppender.setName("e-mail");
-        smtpAppender.setFrom(springEnvironment.getProperty("application.logback.smtp.from"));
-        smtpAppender.addTo(springEnvironment.getProperty("application.logback.smtp.to"));
+        smtpAppender.setFrom("exceptions@soilandpimp.live");
+        smtpAppender.addTo("devs@soilandpimp.live");
         smtpAppender.setSubject(AppConstants.APPLICATION_NAME + " Exception");
-        smtpAppender.setSMTPHost(springEnvironment.getProperty("application.logback.smtp.host"));
-        smtpAppender.setSMTPPort(Integer.parseInt(springEnvironment.getProperty("application.logback.smtp.port")));
-        smtpAppender.setUsername(springEnvironment.getProperty("application.logback.smtp.username"));
-        smtpAppender.setPassword(springEnvironment.getProperty("application.logback.smtp.password"));
-        smtpAppender.setSSL(Boolean.parseBoolean(springEnvironment.getProperty("application.logback.smtp.ssl")));
-        smtpAppender.setSTARTTLS(Boolean.parseBoolean(springEnvironment.getProperty("application.logback.smtp.tls")));
+        smtpAppender.setSMTPHost("localhost");
+        smtpAppender.setSMTPPort(25);
 
         smtpAppender.setAsynchronousSending(false);
         smtpAppender.setLayout(getDefaultPattern().getLayout());

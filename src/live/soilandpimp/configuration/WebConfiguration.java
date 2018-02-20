@@ -13,7 +13,7 @@ import live.soilandpimp.controller.Controller;
 
 @Configuration
 @EnableWebMvc
-@Import({LogbackConfiguration.class})
+@Import({ApplicationConfiguration.class})
 @ComponentScan(basePackageClasses = {Controller.class})
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 

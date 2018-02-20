@@ -1,4 +1,4 @@
-package live.soilandpimp.controller;
+package live.soilandpimp.service;
 
 /**
  * This interface is used in the @ComponentScan to wire up all the Spring controllers.
@@ -7,4 +7,4 @@ package live.soilandpimp.controller;
  * 
  * @author Kyle
  */
-public interface Controller {}
+public interface Service {}
