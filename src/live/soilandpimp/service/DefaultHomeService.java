@@ -11,7 +11,7 @@ import live.soilandpimp.model.HomeEvents;
 import live.soilandpimp.repository.EventsRepository;
 
 @Service
-public class DefaultHomeEvents implements HomeService {
+public class DefaultHomeService implements HomeService {
 
     @Autowired
     private EventsRepository eventsRepository;
