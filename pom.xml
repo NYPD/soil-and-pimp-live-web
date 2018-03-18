@@ -34,19 +34,18 @@
     </developer>
 
     <developer>
-      <id>mares eat dotes</id>
-      <name>mares eat dotes</name>
+      <id>kyle_rutter</id>
+      <name>Kyle Rutter</name>
       <email>kylewrutter@gmail.com</email>
       <roles>
         <role>system admin</role>
         <role>back-end developer</role>
-        <role>front-end developer</role>
       </roles>
     </developer>
   </developers>
 
   <properties>
-    <spring.version>4.3.13.RELEASE</spring.version>
+    <spring.version>5.0.4.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -105,6 +104,12 @@
     </dependency>
 
     <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.7</version>
+    </dependency>
+
+    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
       <version>1.2.3</version>
@@ -116,8 +121,15 @@
       <artifactId>spring-data-cassandra</artifactId>
       <version>2.0.4.RELEASE</version>
     </dependency>
-    
-    
+
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-handler</artifactId>
+      <version>4.1.22.Final</version>
+    </dependency>
+
+
+
     <!-- JUnit Tests -->
     <dependency>
       <groupId>junit</groupId>
@@ -136,17 +148,12 @@
       <version>2.13.0</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>info.archinnov</groupId>
-      <artifactId>achilles-embedded</artifactId>
-      <version>5.3.1</version>
-      <scope>test</scope>
-    </dependency>
 
   </dependencies>
 
 
   <build>
+
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>junit</testSourceDirectory>
 
@@ -154,8 +161,8 @@
 
     <resources>
       <resource>
-        <targetPath>resource</targetPath>
-        <directory>src/resource</directory>
+        <targetPath>resources</targetPath>
+        <directory>src/resources</directory>
         <filtering>true</filtering>
       </resource>
     </resources>

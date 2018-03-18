@@ -14,7 +14,7 @@ public class HomeController {
     @Autowired
     private HomeService homeService;
 
-    @RequestMapping(value = "/home")
+    @RequestMapping(value = {"", "/home"})
     public ModelAndView getHomePage() {
 
         HomeEvents homeEvents = homeService.getHomeEvents();
