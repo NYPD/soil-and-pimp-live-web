@@ -75,6 +75,30 @@ body {
   }
 }
 
+.schedule-container .row-schedule {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.schedule-container .row-schedule .schedule {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.schedule-container .row-schedule .schedule .thumbnail {
+  margin-bottom: 8px;
+}
+
+.schedule-container .row-schedule .schedule .date-title {
+  margin-top: 0;
+  text-align: center;
+}
+
+.schedule-container .row-schedule .schedule dl {
+  margin-bottom: 0;
+}
+  
+
 /** footer **/
 .footer {
   position: absolute;

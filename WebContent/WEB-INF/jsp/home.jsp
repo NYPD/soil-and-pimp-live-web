@@ -115,7 +115,7 @@
         </c:if>
 
         <c:if test="${homeEvents.hasUpcomingEvents()}">
-          <div class="col-xs-6">
+          <div class="col-sm-6">
   
             <h1>Upcoming Events:</h1>
   
@@ -125,7 +125,7 @@
                   <tr>
                     <th></th>
                     <th>Event Name</th>
-                    <th class="text-right">Schedule Count</th>
+                    <th class="text-right">Scheduled</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -142,13 +142,42 @@
                       </td>
                       <td class="text-right">${upcomingEvent.schedules.size()}</td>
                     </tr>
+                    <tr class="schedule-container">
+                      <td colspan="3">
+                        <div class="row row-schedule">
+                          <c:forEach items="${upcomingEvent.schedules}" var="schedule">
+                            <div class="col-sm-6 col-lg-4 schedule">
+                              <div class="thumbnail">
+                                <div class="caption">
+                                  <h3 class="date-title" data-date-time-stamp="${schedule.dateAsTimeStamp}"></h3>
+                                  
+                                  <dl>
+                                    <c:if test="${not empty schedule.place}">
+                                      <dt>Venue</dt>
+                                      <dd>
+                                        <span>${schedule.place}</span>
+                                        <c:if test="${not empty schedule.prefecture}">
+                                          <span>(${schedule.prefecture})</span>
+                                        </c:if>
+                                      </dd>
+                                    </c:if>
+                                    <c:if test="${not empty schedule.enterTime}">
+                                      <dt>Enter Time</dt>
+                                      <dd>${schedule.enterTime}</dd>
+                                    </c:if>
+                                    <c:if test="${not empty schedule.startTime}">
+                                      <dt>Start Time</dt>
+                                      <dd>${schedule.startTime}</dd>
+                                    </c:if>
+                                  </dl>
+                                </div>
+                              </div>
+                            </div>
+                          </c:forEach>
+                        </div>
+                      </td>
+                    </tr>
   
-                    <c:forEach items="${upcomingEvent.schedules}" var="schedule">
-                      <tr>
-                        <td colspan="3">${schedule.date}</td>
-                      </tr>
-                    </c:forEach>
-                    
                   </c:forEach>
                 </tbody>
               </table>
@@ -158,7 +187,7 @@
         </c:if>
 
         <c:if test="${homeEvents.hasPastEvents()}">
-          <div class="col-xs-6">
+          <div class="col-sm-6">
   
             <h1>Past Events:</h1>
   
@@ -168,7 +197,7 @@
                   <tr>
                     <th></th>
                     <th>Event Name</th>
-                    <th class="text-right">Schedule Count</th>
+                    <th class="text-right">Scheduled</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -185,12 +214,42 @@
                       </td>
                       <td class="text-right">${pastEvent.schedules.size()}</td>
                     </tr>
-  
-                    <c:forEach items="${pastEvent.schedules}" var="schedule">
-                      <tr>
-                        <td colspan="3">${schedule.date}</td>
-                      </tr>
-                    </c:forEach>
+                    <tr class="schedule-container">
+                      <td colspan="3">
+                        <div class="row row-schedule">
+                          <c:forEach items="${pastEvent.schedules}" var="schedule">
+                            <div class="col-sm-6 col-lg-4 schedule">
+                              <div class="thumbnail">
+                                <div class="caption">
+                                  <h3 class="date-title" data-date-time-stamp="${schedule.dateAsTimeStamp}"></h3>
+                                  
+                                  <dl>
+                                    <c:if test="${not empty schedule.place}">
+                                      <dt>Venue</dt>
+                                      <dd>
+                                        <span>${schedule.place}</span>
+                                        <c:if test="${not empty schedule.prefecture}">
+                                          <span>(${schedule.prefecture})</span>
+                                        </c:if>
+                                      </dd>
+                                    </c:if>
+                                    <c:if test="${not empty schedule.enterTime}">
+                                      <dt>Enter Time</dt>
+                                      <dd>${schedule.enterTime}</dd>
+                                    </c:if>
+                                    <c:if test="${not empty schedule.startTime}">
+                                      <dt>Start Time</dt>
+                                      <dd>${schedule.startTime}</dd>
+                                    </c:if>
+                                  </dl>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </c:forEach>
+                        </div>
+                      </td>
+                    </tr>
   
                   </c:forEach>
                 </tbody>

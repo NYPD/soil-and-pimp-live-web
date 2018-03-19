@@ -30,6 +30,11 @@ public class Schedule {
     //Ms.Jackson Constructor
     protected Schedule() {}
 
+    // Modified Accessors *********************************************
+    public long getDateAsTimeStamp() {
+        return date.toEpochDay() * 24 * 60 * 60 * 1000;
+    }
+
     // Default Accessors *********************************************
     public LocalDate getDate() {
         return date;
