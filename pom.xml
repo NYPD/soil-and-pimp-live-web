@@ -128,8 +128,6 @@
       <version>4.1.22.Final</version>
     </dependency>
 
-
-
     <!-- JUnit Tests -->
     <dependency>
       <groupId>junit</groupId>
@@ -193,6 +191,9 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <compilerArgs>
+            <compilerArg>-encoding UTF-8</compilerArg>
+          </compilerArgs>
         </configuration>
       </plugin>
 

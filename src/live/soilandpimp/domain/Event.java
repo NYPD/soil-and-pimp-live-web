@@ -76,15 +76,15 @@ public class Event {
         LocalDate firstScheduleDate = schedules.get(0).getDate();
         LocalDate lastScheduleDate = schedules.get(schedules.size() - 1).getDate();
 
-        boolean eventIsActiveInBakerIsland = 
-                (earliestCountryDate.isEqual(firstScheduleDate) || earliestCountryDate.isAfter(firstScheduleDate))
-                                                                &&
-                 (earliestCountryDate.isEqual(lastScheduleDate) || earliestCountryDate.isBefore(lastScheduleDate));
+        boolean eventIsActiveInBakerIsland = (earliestCountryDate.isEqual(firstScheduleDate) || earliestCountryDate.isAfter(
+                                                                                                                            firstScheduleDate))
+                &&
+                (earliestCountryDate.isEqual(lastScheduleDate) || earliestCountryDate.isBefore(lastScheduleDate));
 
-        boolean eventIsActiveInLineIslands = 
-                (latestCountryDate.isEqual(firstScheduleDate) || latestCountryDate.isAfter(firstScheduleDate))
-                                                              &&
-                 (latestCountryDate.isEqual(lastScheduleDate) || latestCountryDate.isBefore(lastScheduleDate));
+        boolean eventIsActiveInLineIslands = (latestCountryDate.isEqual(firstScheduleDate) || latestCountryDate.isAfter(
+                                                                                                                        firstScheduleDate))
+                &&
+                (latestCountryDate.isEqual(lastScheduleDate) || latestCountryDate.isBefore(lastScheduleDate));
 
         if (eventIsActiveInBakerIsland || eventIsActiveInLineIslands)
             return true;

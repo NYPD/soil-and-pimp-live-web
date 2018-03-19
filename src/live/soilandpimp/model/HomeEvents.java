@@ -16,6 +16,20 @@ public class HomeEvents {
         this.pastEvents = pastEvents;
     }
 
+    // Modified Accessors ********************************************
+    public boolean hasActiveEvents() {
+        return (activeEvents == null || activeEvents.size() == 0)? false : true;
+    }
+
+    public boolean hasUpcomingEvents() {
+        return (upcomingEvents == null || upcomingEvents.size() == 0)? false : true;
+    }
+
+    public boolean hasPastEvents() {
+        return (pastEvents == null || pastEvents.size() == 0)? false : true;
+    }
+
+    // Default Accessors ********************************************
     public List<Event> getActiveEvents() {
         return activeEvents;
     }
