@@ -11,7 +11,7 @@ import live.soilandpimp.model.HomeEvents;
 import live.soilandpimp.repository.EventsRepository;
 
 @Service
-public class DefaultHomeService implements HomeService {
+public class DefaultEventService implements EventService {
 
     @Autowired
     private EventsRepository eventsRepository;
@@ -21,7 +21,6 @@ public class DefaultHomeService implements HomeService {
 
         List<Event> activeEvents = new ArrayList<>();
         List<Event> upcomingEvents = new ArrayList<>();
-        List<Event> pastEvents = new ArrayList<>();
 
         Iterable<Event> allEvents = eventsRepository.findAll();
 
@@ -35,13 +34,16 @@ public class DefaultHomeService implements HomeService {
 
             boolean eventUpcoming = event.isEventUpcoming();
 
-            if (eventUpcoming)
-                upcomingEvents.add(event);
-            else
-                pastEvents.add(event);
+            if (eventUpcoming) upcomingEvents.add(event);
         }
 
-        return new HomeEvents(activeEvents, upcomingEvents, pastEvents);
+        return new HomeEvents(activeEvents, upcomingEvents);
+    }
+
+    @Override
+    public List<Event> getPastEvents() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

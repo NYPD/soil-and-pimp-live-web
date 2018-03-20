@@ -1,10 +1,12 @@
 //Initialization
+document.querySelector('#home').classList.add('active');
+
 document.querySelectorAll('.schedule .date-title').forEach(function(element) {
   var timeStamp = Number.parseInt(element.getAttribute('data-date-time-stamp'));
   element.innerHTML = new Date(timeStamp).toLocaleDateString();
 });
 
-window.document.querySelectorAll('.row-schedule').forEach(function(row) {
+window.document.querySelectorAll('.event-container').forEach(function(row) {
   
   var thumbnails = row.querySelectorAll('.schedule .thumbnail');
   
@@ -20,3 +22,5 @@ window.document.querySelectorAll('.row-schedule').forEach(function(row) {
   };
   
 });
+
+$('i[data-toggle="tooltip"]').tooltip()

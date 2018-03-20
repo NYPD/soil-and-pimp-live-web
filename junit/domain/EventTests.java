@@ -90,4 +90,28 @@ public class EventTests {
         assertThat(event.isEventUpcoming(), is(false));
 
     }
+
+    @Test
+    public void eventShouldGetActiveSchedule() throws Exception {
+
+        LocalDate currentDate = LocalDate.now();
+
+        Schedule pastSchedule = mock(Schedule.class);
+        when(pastSchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear() - 1,
+                                                             currentDate.getMonth(),
+                                                             currentDate.getDayOfMonth()));
+        Schedule activeSchedule = mock(Schedule.class);
+        when(activeSchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear(),
+                                                               currentDate.getMonth(),
+                                                               currentDate.getDayOfMonth()));
+
+        List<Schedule> schedules = new ArrayList<>(Arrays.asList(pastSchedule, activeSchedule));
+
+        Field field = event.getClass().getDeclaredField("schedules");
+        field.setAccessible(true);
+        field.set(event, schedules);
+
+        assertThat(event.isEventActive(), is(true));
+        assertThat(event.getActiveSchedule(), is(activeSchedule));
+    }
 }

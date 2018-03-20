@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import org.springframework.data.cassandra.core.mapping.Table;
  */
 @Table(value = "events")
 public class Event {
+
+    public static final Comparator<Event> FIRST_SCHEDULE_DATE_ORDER = new EventFirstScheduleComparator();
 
     @PrimaryKey(value = "event_key")
     private String eventKey;
@@ -78,13 +81,15 @@ public class Event {
 
         boolean eventIsActiveInBakerIsland = (earliestCountryDate.isEqual(firstScheduleDate) || earliestCountryDate.isAfter(
                                                                                                                             firstScheduleDate))
-                &&
-                (earliestCountryDate.isEqual(lastScheduleDate) || earliestCountryDate.isBefore(lastScheduleDate));
+                                             &&
+                                             (earliestCountryDate.isEqual(lastScheduleDate) || earliestCountryDate.isBefore(
+                                                                                                                            lastScheduleDate));
 
         boolean eventIsActiveInLineIslands = (latestCountryDate.isEqual(firstScheduleDate) || latestCountryDate.isAfter(
                                                                                                                         firstScheduleDate))
-                &&
-                (latestCountryDate.isEqual(lastScheduleDate) || latestCountryDate.isBefore(lastScheduleDate));
+                                             &&
+                                             (latestCountryDate.isEqual(lastScheduleDate) || latestCountryDate.isBefore(
+                                                                                                                        lastScheduleDate));
 
         if (eventIsActiveInBakerIsland || eventIsActiveInLineIslands)
             return true;
@@ -107,6 +112,33 @@ public class Event {
         LocalDate firstScheduleDate = schedules.get(0).getDate();
 
         return latestCountryDate.isBefore(firstScheduleDate);
+
+    }
+
+    public Schedule getActiveSchedule() {
+
+        if (this.getSchedules() == null || this.getSchedules().size() == 0) return null;
+
+        Date now = new Date();
+
+        //Baker Islands, EE.UU lol
+        LocalDate earliestCountryDate = now.toInstant().atZone(ZoneId.of("UTC-12")).toLocalDate();
+
+        //Line Islands islands lol
+        LocalDate latestCountryDate = now.toInstant().atZone(ZoneId.of("UTC+14")).toLocalDate();
+
+        for (Schedule schedule : schedules) {
+
+            LocalDate scheduleDate = schedule.getDate();
+
+            boolean eventIsActiveInBakerIsland = earliestCountryDate.isEqual(scheduleDate);
+            boolean eventIsActiveInLineIslands = latestCountryDate.isEqual(scheduleDate);
+
+            if (eventIsActiveInBakerIsland || eventIsActiveInLineIslands) return schedule;
+
+        }
+
+        return null;
 
     }
 
@@ -154,6 +186,27 @@ public class Event {
     @Override
     public String toString() {
         return "Event [eventKey=" + eventKey + ", name=" + name + ", schedules=" + schedules + "]";
+    }
+
+    // Comparators ***************************************************
+    private static class EventFirstScheduleComparator implements Comparator<Event> {
+
+        @Override
+        public int compare(Event e1, Event e2) {
+
+            List<Schedule> e1Schedules = e1.getSchedules();
+            List<Schedule> e2Schedules = e2.getSchedules();
+
+            Collections.sort(e1Schedules, Schedule.DATE_ORDER);
+            Collections.sort(e2Schedules, Schedule.DATE_ORDER);
+
+            if ((e1Schedules == null || e1Schedules.size() == 0) && (e2Schedules != null && e2Schedules.size() > 0))
+                return 1;
+            else if ((e1Schedules != null && e1Schedules.size() > 0) && (e2Schedules == null || e2Schedules.size() == 0))
+                return -1;
+
+            return e1Schedules.get(0).getDate().compareTo(e2Schedules.get(0).getDate());
+        }
     }
 
 }
