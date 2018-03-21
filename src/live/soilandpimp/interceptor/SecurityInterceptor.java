@@ -1,16 +1,22 @@
 package live.soilandpimp.interceptor;
 
 import java.io.IOException;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import live.soilandpimp.beans.SoilAndPimpSessionBean;
 import live.soilandpimp.domain.User;
+import live.soilandpimp.domain.enums.ApiType;
 import live.soilandpimp.domain.enums.UserRole;
+import live.soilandpimp.service.ApiLoginService;
+import live.soilandpimp.util.AppConstants;
 
 /**
  * Security interceptor that checks to see if current user is allowed to continue with the request
@@ -30,6 +36,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private SoilAndPimpSessionBean soilAndPimpSessionBean;
+    @Autowired
+    private ApplicationContext applicationContext;
 
     private UserRole allowedRole;
 
@@ -46,9 +54,47 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         boolean isAllowedUser = user != null && user.getUserRole() == this.allowedRole;
         if (isAllowedUser) return true;
 
-        response.sendRedirect("/admin");
-        return false;
+        boolean noCookies = request.getCookies() == null;
+        if (noCookies) {
+            response.sendRedirect("/admin");
+            return false;
+        }
 
+        ApiType apiType = null;
+
+        for (Cookie cookie : request.getCookies()) {
+            String cookieName = cookie.getName();
+
+            boolean isNotApiTypeCookie = !AppConstants.API_TYPE_COOKIE_NAME.equals(cookieName);
+            if (isNotApiTypeCookie) continue;
+
+            String apiTypename = cookie.getValue();
+            apiType = ApiType.findByName(apiTypename);
+
+            break;
+        }
+
+        boolean noApiTypeCookieFound = apiType == null;
+        if (noApiTypeCookieFound) {
+            response.sendRedirect("/admin");
+            return false;
+        }
+
+        Map<String, Object> apiLoginServices = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
+
+        /*
+         * We should theoretically find a API Type, if for some unknown reason we don't, send the user to the login page
+         */
+        boolean noApiLoginService = apiLoginServices == null || apiLoginServices.size() == 0;
+        if (noApiLoginService) {
+            response.sendRedirect("/admin");
+            return false;
+        }
+
+        ApiLoginService apiLoginService = (ApiLoginService) apiLoginServices.values().toArray()[0];
+        apiLoginService.reAuthenticateUser(request, response);
+
+        return false;
     }
 
 }

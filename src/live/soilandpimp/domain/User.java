@@ -1,5 +1,17 @@
 package live.soilandpimp.domain;
 
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.cassandra.core.mapping.CassandraType;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
+
+import com.datastax.driver.core.DataType.Name;
+
+import live.soilandpimp.domain.enums.ApiType;
 import live.soilandpimp.domain.enums.UserRole;
 
 
@@ -8,16 +20,25 @@ import live.soilandpimp.domain.enums.UserRole;
  * 
  * @author NYPD
  */
+@Table("users")
 public class User {
 
-    private int userId;
+    @PrimaryKey
+    private UUID id;
     private String nickname;
+    @Column("user_role")
     private UserRole userRole;
+
+    @Column("api_identities")
+    @CassandraType(type = Name.MAP, typeArguments = {Name.TEXT, Name.TEXT})
+    private Map<ApiType, String> apiIdentities;
+
+    @Transient
     private String userProfilePicture;
 
     // Default Accessors *********************************
-    public int getUserId() {
-        return userId;
+    public UUID getUserId() {
+        return id;
     }
     public String getNickname() {
         return nickname;
@@ -31,13 +52,17 @@ public class User {
     public void setUserProfilePicture(String userProfilePicture) {
         this.userProfilePicture = userProfilePicture;
     }
+    public Map<ApiType, String> getApiIdentities() {
+        return apiIdentities;
+    }
 
     // For Cassandra ***************************************
     protected User() {}
 
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", nickname=" + nickname + ", googleId=" + userRole + "]";
+        return "User [id=" + id + ", nickname=" + nickname + ", userRole=" + userRole + ", apiIdentities=" + apiIdentities
+                + ", userProfilePicture=" + userProfilePicture + "]";
     }
 
 }

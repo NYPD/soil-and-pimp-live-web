@@ -36,14 +36,13 @@ public class AdminController {
 
         User user = soilAndPimpSessionBean.getUser();
 
-        //        if (user != null)
-        //            return new ModelAndView("redirect:/admin/maintenance");
-        //        else if (prevPath != null)
-        //            return new ModelAndView("redirect:" + prevPath);
-        //
-        //        return new ModelAndView("login");
+        if (user != null)
+            return new ModelAndView("redirect:/admin/maintenance");
+        else if (prevPath != null)
+            return new ModelAndView("redirect:" + prevPath);
 
-        return new ModelAndView("redirect:/admin/maintenance");
+        return new ModelAndView("login");
+
     }
 
     @RequestMapping(value = "logout")
@@ -75,12 +74,12 @@ public class AdminController {
 
         googleLoginService.verifyAuthenticationResponse(request);
 
-        User moeSoundsUser = googleLoginService.getMoeSoundsUser();
+        User soilAndPimpUser = googleLoginService.getSoilAndPimpUser();
 
-        boolean unauthorized = moeSoundsUser == null;
+        boolean unauthorized = soilAndPimpUser == null;
         if (unauthorized) throw new UnauthorizedUserException(request);
 
-        soilAndPimpSessionBean.setUser(moeSoundsUser);
+        soilAndPimpSessionBean.setUser(soilAndPimpUser);
 
         boolean rememberMe = soilAndPimpSessionBean.isRememberMe();
         if (rememberMe) googleLoginService.createUserCookies(response);

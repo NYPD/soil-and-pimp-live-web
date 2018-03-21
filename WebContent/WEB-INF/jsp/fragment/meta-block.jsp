@@ -5,4 +5,4 @@
 
 <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
 <link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
-<link href="${context}/css/global.css" rel="stylesheet">
+<link href="${context}/css/global.css?v=${projectVersion}" rel="stylesheet">

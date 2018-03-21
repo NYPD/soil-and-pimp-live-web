@@ -48,7 +48,7 @@ public abstract class ApiLoginService {
      * 
      * @return Moe Sounds User
      */
-    public abstract User getMoeSoundsUser();
+    public abstract User getSoilAndPimpUser();
 
     /**
      * Creates API specific cookies to be able to authenticate the user again without having them

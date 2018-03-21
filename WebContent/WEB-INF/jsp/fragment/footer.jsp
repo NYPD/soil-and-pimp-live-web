@@ -25,13 +25,13 @@
             </a>
           </li> 
           <li>
-            <a href="https://github.com/NYPD/soil-and-pimp-live-web">
+            <a href="https://github.com/NYPD/soil-and-pimp-live-web" target="_blank">
               <i class="fa fa-lg fa-github" aria-hidden="true"></i> 
               <span>View Source</span>
             </a>
           </li> 
           <li>
-            <a href="https://github.com/NYPD/soil-and-pimp-live-web/issues">
+            <a href="https://github.com/NYPD/soil-and-pimp-live-web/issues" target="_blank">
               <i class="fa fa-lg fa-bug" aria-hidden="true"></i>
               <span>Submit Bug Report</span>
             </a>

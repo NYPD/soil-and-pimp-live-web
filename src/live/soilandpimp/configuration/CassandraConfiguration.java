@@ -14,6 +14,7 @@ import com.datastax.driver.extras.codecs.enums.EnumNameCodec;
 import live.soilandpimp.annotation.DevelopmentProfile;
 import live.soilandpimp.annotation.ProductionProfile;
 import live.soilandpimp.domain.Domain;
+import live.soilandpimp.domain.enums.ApiType;
 import live.soilandpimp.domain.enums.UserRole;
 import live.soilandpimp.repository.Repository;
 import live.soilandpimp.util.AppConstants;
@@ -59,7 +60,8 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
 
         return clusterBuilder -> {
             clusterBuilder.getConfiguration().getCodecRegistry()
-            .register(new EnumNameCodec<UserRole>(UserRole.class));
+                          .register(new EnumNameCodec<UserRole>(UserRole.class))
+                          .register(new EnumNameCodec<ApiType>(ApiType.class));
             return clusterBuilder;
         };
 
