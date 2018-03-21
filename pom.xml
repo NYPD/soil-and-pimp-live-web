@@ -123,9 +123,27 @@
     </dependency>
 
     <dependency>
+      <groupId>com.datastax.cassandra</groupId>
+      <artifactId>cassandra-driver-extras</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+
+    <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-handler</artifactId>
       <version>4.1.22.Final</version>
+    </dependency>
+    
+    <!-- Google Authentication -->
+    <dependency>
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client</artifactId>
+      <version>1.23.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-oauth2</artifactId>
+      <version>v2-rev134-1.23.0</version>
     </dependency>
 
     <!-- JUnit Tests -->

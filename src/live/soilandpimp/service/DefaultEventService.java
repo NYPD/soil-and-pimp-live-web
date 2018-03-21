@@ -1,6 +1,7 @@
 package live.soilandpimp.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,17 @@ public class DefaultEventService implements EventService {
 
     @Override
     public List<Event> getPastEvents() {
-        // TODO Auto-generated method stub
-        return null;
+
+        Iterable<Event> allEvents = eventsRepository.findAll();
+
+        List<Event> pastEvents = new ArrayList<>();
+
+        for (Event event : allEvents)
+            if (!event.isEventUpcoming()) pastEvents.add(event);
+
+        Collections.sort(pastEvents, Event.FIRST_SCHEDULE_DATE_ORDER_DESC);
+
+        return pastEvents;
     }
 
 }

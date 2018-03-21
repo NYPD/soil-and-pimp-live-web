@@ -4,14 +4,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
+import org.springframework.data.cassandra.config.ClusterBuilderConfigurer;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 import com.datastax.driver.core.AuthProvider;
 import com.datastax.driver.core.PlainTextAuthProvider;
+import com.datastax.driver.extras.codecs.enums.EnumNameCodec;
 
 import live.soilandpimp.annotation.DevelopmentProfile;
 import live.soilandpimp.annotation.ProductionProfile;
 import live.soilandpimp.domain.Domain;
+import live.soilandpimp.domain.enums.UserRole;
 import live.soilandpimp.repository.Repository;
 import live.soilandpimp.util.AppConstants;
 
@@ -49,6 +52,17 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
     @Override
     public String[] getEntityBasePackages() {
         return new String[] {Domain.class.getPackage().getName()};
+    }
+
+    @Override
+    protected ClusterBuilderConfigurer getClusterBuilderConfigurer() {
+
+        return clusterBuilder -> {
+            clusterBuilder.getConfiguration().getCodecRegistry()
+            .register(new EnumNameCodec<UserRole>(UserRole.class));
+            return clusterBuilder;
+        };
+
     }
 
 }

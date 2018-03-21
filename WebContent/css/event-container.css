@@ -1,0 +1,42 @@
+.event-container .event {
+  padding: 8px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: solid 1px #CFD8DC;
+}
+
+.event-container:nth-of-type(odd) .event {
+  background-color: #ECEFF1;
+}
+
+.event-container .event .event-info {
+  height: 100%;
+}
+
+.event-container .event .event-info .event-name {
+  width: 100%;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #BDBDBD;
+  font-size: 16px;
+}
+
+.event-container .event .schedule .thumbnail {
+  margin-bottom: 10px;
+}
+
+.event-container .event .schedule .date-title {
+  margin-top: 0;
+  text-align: center;
+}
+
+.event-container .event .schedule dt {
+  font-size: 15px;
+}
+
+.event-container .event .schedule dl {
+  margin-bottom: 0;
+}
+
+.event-container .event .schedule i {
+  color: #1E88E5;
+}

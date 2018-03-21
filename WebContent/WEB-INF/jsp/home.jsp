@@ -5,17 +5,12 @@
 <html lang="en">
 
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Stay up to date with the latest Soil & &ldquo;Pimp&rdquo; Sessions concerts around the world."> 
+    <%@ include file="fragment/head-block.jsp" %>
     
     <title>SOIL &amp; "PIMP" LIVE</title>
-
-    <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
-    <link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
-    <link href="${context}/css/global.css" rel="stylesheet">
+    
     <link href="${context}/css/home.css" rel="stylesheet">
+    <link href="${context}/css/event-container.css" rel="stylesheet">
   </head>
   
   <body>
@@ -89,13 +84,13 @@
       
         <div class="row">
           <div class="col-xs-12">
-            <h1>Upcoming Events:</h1>
+            <h1>Upcoming Events &#40;${homeEvents.upcomingEvents.size()}&#41;</h1>
           </div>
         </div>
         
         
         <c:forEach items="${homeEvents.upcomingEvents}" var="upcomingEvent">
-          <div class="row event-container">
+          <div class="row event-container content-loading">
           
             <div class="col-xs-12">
               

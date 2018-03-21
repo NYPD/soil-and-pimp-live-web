@@ -22,6 +22,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 public class Event {
 
     public static final Comparator<Event> FIRST_SCHEDULE_DATE_ORDER = new EventFirstScheduleComparator();
+    public static final Comparator<Event> FIRST_SCHEDULE_DATE_ORDER_DESC = new EventFirstScheduleComparatorDesc();
 
     @PrimaryKey(value = "event_key")
     private String eventKey;
@@ -79,17 +80,15 @@ public class Event {
         LocalDate firstScheduleDate = schedules.get(0).getDate();
         LocalDate lastScheduleDate = schedules.get(schedules.size() - 1).getDate();
 
-        boolean eventIsActiveInBakerIsland = (earliestCountryDate.isEqual(firstScheduleDate) || earliestCountryDate.isAfter(
-                                                                                                                            firstScheduleDate))
-                                             &&
-                                             (earliestCountryDate.isEqual(lastScheduleDate) || earliestCountryDate.isBefore(
-                                                                                                                            lastScheduleDate));
+        boolean eventIsActiveInBakerIsland =
+                (earliestCountryDate.isEqual(firstScheduleDate) || earliestCountryDate.isAfter(firstScheduleDate))
+                &&
+                (earliestCountryDate.isEqual(lastScheduleDate) || earliestCountryDate.isBefore(lastScheduleDate));
 
-        boolean eventIsActiveInLineIslands = (latestCountryDate.isEqual(firstScheduleDate) || latestCountryDate.isAfter(
-                                                                                                                        firstScheduleDate))
-                                             &&
-                                             (latestCountryDate.isEqual(lastScheduleDate) || latestCountryDate.isBefore(
-                                                                                                                        lastScheduleDate));
+        boolean eventIsActiveInLineIslands =
+                (latestCountryDate.isEqual(firstScheduleDate) || latestCountryDate.isAfter(firstScheduleDate))
+                &&
+                (latestCountryDate.isEqual(lastScheduleDate) || latestCountryDate.isBefore(lastScheduleDate));
 
         if (eventIsActiveInBakerIsland || eventIsActiveInLineIslands)
             return true;
@@ -206,6 +205,26 @@ public class Event {
                 return -1;
 
             return e1Schedules.get(0).getDate().compareTo(e2Schedules.get(0).getDate());
+        }
+    }
+
+    private static class EventFirstScheduleComparatorDesc implements Comparator<Event> {
+
+        @Override
+        public int compare(Event e1, Event e2) {
+
+            List<Schedule> e1Schedules = e1.getSchedules();
+            List<Schedule> e2Schedules = e2.getSchedules();
+
+            Collections.sort(e1Schedules, Schedule.DATE_ORDER);
+            Collections.sort(e2Schedules, Schedule.DATE_ORDER);
+
+            if ((e1Schedules == null || e1Schedules.size() == 0) && (e2Schedules != null && e2Schedules.size() > 0))
+                return -1;
+            else if ((e1Schedules != null && e1Schedules.size() > 0) && (e2Schedules == null || e2Schedules.size() == 0))
+                return 1;
+
+            return e2Schedules.get(0).getDate().compareTo(e1Schedules.get(0).getDate());
         }
     }
 
