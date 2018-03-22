@@ -1,6 +1,7 @@
 package live.soilandpimp.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import live.soilandpimp.annotation.DefaultController;
 import live.soilandpimp.annotation.GoogleLogin;
 import live.soilandpimp.beans.SoilAndPimpSessionBean;
+import live.soilandpimp.domain.Event;
 import live.soilandpimp.domain.User;
 import live.soilandpimp.exception.UnauthorizedUserException;
 import live.soilandpimp.service.ApiLoginService;
@@ -100,6 +102,9 @@ public class AdminController {
     public ModelAndView getAdminMaintenancePage() {
 
         ModelAndView mav = new ModelAndView("maintenance");
+
+        List<Event> allEvents = eventService.getAllEvents();
+        mav.addObject("allEvents", allEvents);
 
         return mav;
     }

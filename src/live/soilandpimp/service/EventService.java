@@ -10,4 +10,6 @@ public interface EventService {
     public HomeEvents getHomeEvents();
 
     public List<Event> getPastEvents();
+
+    public List<Event> getAllEvents();
 }

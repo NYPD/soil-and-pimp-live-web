@@ -56,4 +56,13 @@ public class DefaultEventService implements EventService {
         return pastEvents;
     }
 
+    @Override
+    public List<Event> getAllEvents() {
+
+        List<Event> allEvents = new ArrayList<>();
+        eventsRepository.findAll().forEach(event -> allEvents.add(event));
+
+        return allEvents;
+    }
+
 }

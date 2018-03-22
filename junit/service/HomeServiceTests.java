@@ -60,4 +60,26 @@ public class HomeServiceTests {
         assertThat(upcomingEvents.get(0), is(upcomingEvent2));
 
     }
+
+    @Test
+    public void shouldGetPastEvents() throws Exception {
+
+        Event pastEvent = mock(Event.class);
+
+        Event upcomingEvent2 = mock(Event.class);
+        when(upcomingEvent2.isEventUpcoming()).thenReturn(true);
+
+        EventsRepository eventsRepository = mock(EventsRepository.class);
+        when(eventsRepository.findAll()).thenReturn(Arrays.asList(pastEvent, upcomingEvent2));
+
+        Field field = homeService.getClass().getDeclaredField("eventsRepository");
+        field.setAccessible(true);
+        field.set(homeService, eventsRepository);
+
+        List<Event> pastEvents = homeService.getPastEvents();
+        assertThat(pastEvents.size(), is(1));
+
+        assertThat(pastEvents.get(0), is(pastEvent));
+
+    }
 }
