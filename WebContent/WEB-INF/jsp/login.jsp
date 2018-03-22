@@ -7,7 +7,7 @@
   
     <title>Soil Login</title>
   
-    <%@ include file = "fragment/meta-block.jsp" %>
+    <%@ include file = "fragment/head-block.jsp" %>
 
     <link href="${context}/css/login.css?v=${projectVersion}" rel="stylesheet">
     

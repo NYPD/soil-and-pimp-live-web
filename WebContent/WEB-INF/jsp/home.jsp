@@ -5,7 +5,7 @@
 <html lang="en">
 
   <head>
-    <%@ include file="fragment/meta-block.jsp" %>
+    <%@ include file="fragment/head-block.jsp" %>
     
     <title>SOIL &amp; "PIMP" LIVE</title>
     
@@ -177,7 +177,7 @@
     <!-- Scripts -->
     <script src="${context}/js/vendor/jquery-3.3.1.min.js"></script>
     <script src="${context}/js/vendor/bootstrap.min.js"></script>
-    <script src="${context}/js/home.js"></script>
+    <script src="${context}/js/home.js?v=${projectVersion}"></script>
   </body>
 
 </html>

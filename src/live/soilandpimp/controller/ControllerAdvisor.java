@@ -58,8 +58,7 @@ public class ControllerAdvisor {
 
         logger.error("State tokens did not match for attempted user sign on");
 
-        ModelAndView modelAndView = new ModelAndView("error/access-denied");
-        return modelAndView;
+        return new ModelAndView("admin");
     }
 
     @ExceptionHandler(value = UnauthorizedUserException.class)
@@ -67,8 +66,7 @@ public class ControllerAdvisor {
 
         logger.info("Unauthorized user attempted to login as an admin from > " + exception.getIpAddress());
 
-        ModelAndView modelAndView = new ModelAndView("error/access-denied");
-        return modelAndView;
+        return new ModelAndView("admin");
     }
 
     @ExceptionHandler(value = Exception.class)

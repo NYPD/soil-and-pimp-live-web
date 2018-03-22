@@ -4,7 +4,7 @@
 <html lang="en">
 
   <head>
-    <%@ include file="fragment/meta-block.jsp" %>
+    <%@ include file="fragment/head-block.jsp" %>
     
     <title>SOIL &amp; "PIMP" LIVE - About</title>
   </head>
