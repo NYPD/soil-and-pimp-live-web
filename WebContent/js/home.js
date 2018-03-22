@@ -1,6 +1,4 @@
 //Initialization
-document.querySelector('#home').classList.add('active');
-
 document.querySelectorAll('.schedule .date-title').forEach(function(element) {
   var timeStamp = Number.parseInt(element.getAttribute('data-date-time-stamp'));
   element.innerHTML = new Date(timeStamp).toLocaleDateString();

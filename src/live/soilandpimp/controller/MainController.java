@@ -12,7 +12,7 @@ import live.soilandpimp.model.HomeEvents;
 import live.soilandpimp.service.EventService;
 
 @DefaultController
-public class EventController {
+public class MainController {
 
     @Autowired
     private EventService eventService;

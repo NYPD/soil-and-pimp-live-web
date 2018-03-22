@@ -25,9 +25,11 @@
 
     <%@ include file="fragment/footer.jsp" %>
     
+    <!-- Modals -->
+    <%@ include file="fragment/global-modals.jsp" %>
+    
     <!-- Scripts -->
-    <script src="${context}/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="${context}/js/vendor/bootstrap.min.js"></script>
+    <%@ include file="fragment/global-javascript.jsp" %>
   </body>
 
 </html>

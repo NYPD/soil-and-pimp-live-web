@@ -12,7 +12,7 @@
     <link href="${context}/css/event-container.css" rel="stylesheet">
   </head>
   
-  <body>
+  <body data-active-tab="past-events">
   
     <%@ include file="fragment/navigation.jsp" %>
 
@@ -108,10 +108,12 @@
 
     <%@ include file="fragment/footer.jsp" %>
     
+    <!-- Modals -->
+    <%@ include file="fragment/global-modals.jsp" %>
+    
     <!-- Scripts -->
-    <script src="${context}/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="${context}/js/vendor/bootstrap.min.js"></script>
-    <script src="${context}/js/past-events.js"></script>
+    <%@ include file="fragment/global-javascript.jsp" %>
+    <script src="${context}/js/past-events.js?v=${projectVersion}"></script>
   </body>
 
 </html>
