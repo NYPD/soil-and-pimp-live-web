@@ -7,15 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import live.soilandpimp.domain.EmailSubscription;
 import live.soilandpimp.domain.Event;
 import live.soilandpimp.model.HomeEvents;
+import live.soilandpimp.repository.EmailRepository;
 import live.soilandpimp.repository.EventsRepository;
 
 @Service
-public class DefaultEventService implements EventService {
+public class DefaultMainService implements MainService {
 
     @Autowired
     private EventsRepository eventsRepository;
+    @Autowired
+    private EmailRepository emailRepository;
 
     @Override
     public HomeEvents getHomeEvents() {
@@ -63,6 +67,12 @@ public class DefaultEventService implements EventService {
         eventsRepository.findAll().forEach(event -> allEvents.add(event));
 
         return allEvents;
+    }
+
+    @Override
+    public void addEmailSubscription(String emailAddress) {
+        EmailSubscription emailSubscription = new EmailSubscription(emailAddress);
+        emailRepository.save(emailSubscription);
     }
 
 }

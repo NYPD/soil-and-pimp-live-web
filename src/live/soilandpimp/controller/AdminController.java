@@ -19,14 +19,14 @@ import live.soilandpimp.domain.Event;
 import live.soilandpimp.domain.User;
 import live.soilandpimp.exception.UnauthorizedUserException;
 import live.soilandpimp.service.ApiLoginService;
-import live.soilandpimp.service.EventService;
+import live.soilandpimp.service.MainService;
 
 @DefaultController
 @RequestMapping(value = "/admin")
 public class AdminController {
 
     @Autowired
-    private EventService eventService;
+    private MainService eventService;
     @Autowired
     private SoilAndPimpSessionBean soilAndPimpSessionBean;
     @Autowired

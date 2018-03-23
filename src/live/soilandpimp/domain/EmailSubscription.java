@@ -3,11 +3,13 @@ package live.soilandpimp.domain;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
+@Table(value = "email_subscriptions")
 public class EmailSubscription {
 
-    @Column("email_address")
+    @PrimaryKey("email_address")
     private String emailAddress;
 
     // Cassandra constructor

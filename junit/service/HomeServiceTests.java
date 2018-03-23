@@ -16,11 +16,11 @@ import live.soilandpimp.domain.Event;
 import live.soilandpimp.domain.Schedule;
 import live.soilandpimp.model.HomeEvents;
 import live.soilandpimp.repository.EventsRepository;
-import live.soilandpimp.service.DefaultEventService;
+import live.soilandpimp.service.DefaultMainService;
 
 public class HomeServiceTests {
 
-    private DefaultEventService homeService = new DefaultEventService();
+    private DefaultMainService homeService = new DefaultMainService();
 
     @Test
     public void shouldGetHomeEventsObject() throws Exception {

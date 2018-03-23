@@ -9,13 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 import live.soilandpimp.annotation.DefaultController;
 import live.soilandpimp.domain.Event;
 import live.soilandpimp.model.HomeEvents;
-import live.soilandpimp.service.EventService;
+import live.soilandpimp.service.MainService;
 
 @DefaultController
 public class MainController {
 
     @Autowired
-    private EventService eventService;
+    private MainService eventService;
 
     @RequestMapping(value = "", produces = "text/html;charset=UTF-8")
     public ModelAndView getHomePage() {
