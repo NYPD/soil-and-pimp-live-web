@@ -13,5 +13,7 @@ public interface MainService {
 
     public List<Event> getAllEvents();
 
+    public Event getEvent(String eventKey);
+
     public void addEmailSubscription(String emailAddress);
 }

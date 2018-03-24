@@ -13,7 +13,7 @@ import live.soilandpimp.service.MainService;
 public class MainRestController {
 
     @Autowired
-    private MainService eventService;
+    private MainService mainService;
 
     @RequestMapping("subscribe")
     public ModelAndView getSubscribeModal() {
@@ -22,6 +22,6 @@ public class MainRestController {
 
     @RequestMapping(value = "submit-email", method = RequestMethod.POST)
     public void submitEmail(@RequestParam("email") String emailAddress) {
-        eventService.addEmailSubscription(emailAddress);
+        mainService.addEmailSubscription(emailAddress);
     }
 }

@@ -1,3 +1,8 @@
+<div class="modal" id="global-large-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+  </div>
+</div>
+
 <div class="modal" id="global-medium-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-md" role="document">
   </div>

@@ -26,7 +26,7 @@ import live.soilandpimp.service.MainService;
 public class AdminController {
 
     @Autowired
-    private MainService eventService;
+    private MainService mainService;
     @Autowired
     private SoilAndPimpSessionBean soilAndPimpSessionBean;
     @Autowired
@@ -103,7 +103,7 @@ public class AdminController {
 
         ModelAndView mav = new ModelAndView("maintenance");
 
-        List<Event> allEvents = eventService.getAllEvents();
+        List<Event> allEvents = mainService.getAllEvents();
         mav.addObject("allEvents", allEvents);
 
         return mav;

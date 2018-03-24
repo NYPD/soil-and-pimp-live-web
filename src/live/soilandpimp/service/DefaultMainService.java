@@ -3,6 +3,7 @@ package live.soilandpimp.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,9 +71,16 @@ public class DefaultMainService implements MainService {
     }
 
     @Override
+    public Event getEvent(String eventKey) {
+        Optional<Event> event = eventsRepository.findById(eventKey);
+        return event.isPresent()? event.get() : null;
+    }
+
+    @Override
     public void addEmailSubscription(String emailAddress) {
         EmailSubscription emailSubscription = new EmailSubscription(emailAddress);
         emailRepository.save(emailSubscription);
     }
+
 
 }

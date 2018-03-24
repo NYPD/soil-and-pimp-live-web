@@ -1,0 +1,11 @@
+#memo {
+  min-height: 50px;
+  resize: vertical;
+}
+
+.modal .form-small {
+  min-width: 100px;
+}
+.modal .form-big {
+  min-width: 200px;
+}
