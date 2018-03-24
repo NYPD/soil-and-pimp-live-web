@@ -11,7 +11,7 @@
       <div class="form-group">
         <label for="email-address" class="col-sm-3 control-label">Email Address:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control alpha alpha-email" id="email-address" required>
+          <input type="text" class="form-control alpha alpha-email" id="email-address" required placeholder="josie@pimp.com">
         </div>
       </div>
     </form>
