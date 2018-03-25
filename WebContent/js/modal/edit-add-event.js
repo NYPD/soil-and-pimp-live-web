@@ -1,5 +1,6 @@
 var saveEventButton = document.getElementById('save-event');
 var addScheduleButton = document.getElementById('add-schedule');
+var eventTable = document.getElementById('event-table');
 
 saveEventButton.addEventListener('click', function() {
   
@@ -11,12 +12,12 @@ saveEventButton.addEventListener('click', function() {
     let isEditMode = document.getElementById('event-key') !== null;
     
     if(isEditMode) {
-      let eventKey = document.getElementById('event-key');
-      let eventRow = document.querySelector('.event-row[data-event-key="' + eventKey +'"]');
+      let eventKey = document.getElementById('event-key').value;
+      let eventRow = eventTable.querySelector('.event-row[data-event-key="' + eventKey +'"]');
       eventRow.insertAdjacentHTML('afterend', eventRowMarkup);
       eventRow.parentElement.removeChild(eventRow);
     }else {
-      document.getElementById('event-table').querySelector('tbody tr:last-child').insertAdjacentHTML('afterend', eventRowMarkup);
+      eventTable.querySelector('tbody tr:last-child').insertAdjacentHTML('afterend', eventRowMarkup);
     }
     
     $modalLarge.modal('hide');
