@@ -15,12 +15,12 @@ import live.soilandpimp.service.MainService;
 public class AdminRestController {
 
     @Autowired
-    private MainService eventService;
+    private MainService mainService;
 
     @RequestMapping("/get-edit-event-modal-content")
     public ModelAndView getEditEventModalContent(@RequestParam("eventKey") String eventKey) {
 
-        Event event = eventService.getEvent(eventKey);
+        Event event = mainService.getEvent(eventKey);
 
         ModelAndView modelAndView = new ModelAndView("modal/edit-add-event");
         modelAndView.addObject("event", event);
@@ -29,9 +29,14 @@ public class AdminRestController {
     }
 
     @RequestMapping("/save-event")
-    public void saveEvent(EventForm eventForm) {
+    public ModelAndView saveEvent(EventForm eventForm) {
 
-        System.out.println(eventForm);
+        Event event = mainService.saveEvent(eventForm);
+
+        ModelAndView modelAndView = new ModelAndView("fragment/maintanence-event-row");
+        modelAndView.addObject("event", event);
+
+        return modelAndView;
 
     }
 
@@ -39,7 +44,7 @@ public class AdminRestController {
 
     public ModelAndView getDeleteEventModalContent(@RequestParam("eventKey") String eventKey) {
 
-        Event event = eventService.getEvent(eventKey);
+        Event event = mainService.getEvent(eventKey);
 
         ModelAndView modelAndView = new ModelAndView("modal/delete-event");
         modelAndView.addObject("event", event);
@@ -50,7 +55,6 @@ public class AdminRestController {
 
     @RequestMapping("/delete-event")
     public void deleteEvent(@RequestParam("eventKey") String eventKey) {
-        System.out.println(eventKey);
-
+        mainService.deleteEvent(eventKey);
     }
 }

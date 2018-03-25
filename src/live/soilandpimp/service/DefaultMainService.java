@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import live.soilandpimp.domain.EmailSubscription;
 import live.soilandpimp.domain.Event;
+import live.soilandpimp.model.EventForm;
 import live.soilandpimp.model.HomeEvents;
 import live.soilandpimp.repository.EmailRepository;
 import live.soilandpimp.repository.EventsRepository;
@@ -77,10 +78,20 @@ public class DefaultMainService implements MainService {
     }
 
     @Override
+    public void deleteEvent(String eventKey) {
+        eventsRepository.deleteById(eventKey);
+    }
+
+    @Override
+    public Event saveEvent(EventForm eventForm) {
+
+        return null;
+    }
+
+    @Override
     public void addEmailSubscription(String emailAddress) {
         EmailSubscription emailSubscription = new EmailSubscription(emailAddress);
         emailRepository.save(emailSubscription);
     }
-
 
 }

@@ -1,10 +1,15 @@
 package live.soilandpimp.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.UserDefinedType;
+
+import live.soilandpimp.model.ScheduleForm;
 
 /**
  * Represents a single performance in a Soil and "Pimp" Sessions {@link Event}
@@ -30,9 +35,29 @@ public class Schedule {
     //Ms.Jackson Constructor
     protected Schedule() {}
 
+    public Schedule(ScheduleForm scheduleForm) {
+        this.date = scheduleForm.getDate();
+        this.enterTime = scheduleForm.getEnterTime();
+        this.startTime = scheduleForm.getStartTime();
+        this.prefecture = scheduleForm.getPrefecture();
+        this.place = scheduleForm.getPlace();
+        this.memo = scheduleForm.getMemo();
+        this.link = scheduleForm.getLink();
+    }
+
     // Modified Accessors *********************************************
     public long getDateAsTimeStamp() {
         return date.toEpochDay() * 24 * 60 * 60 * 1000;
+    }
+
+    public static List<Schedule> createSchedules(Collection<ScheduleForm> scheduleForms) {
+
+        List<Schedule> schedules = new ArrayList<>();
+
+        for (ScheduleForm scheduleForm : scheduleForms)
+            schedules.add(new Schedule(scheduleForm));
+
+        return schedules;
     }
 
     // Default Accessors *********************************************

@@ -1,5 +1,7 @@
 package live.soilandpimp.domain;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -8,9 +10,13 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.DatatypeConverter;
+
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+
+import live.soilandpimp.model.EventForm;
 
 /**
  * Represents a single Soil and "Pimp" sessions event
@@ -52,16 +58,49 @@ public class Event {
     // Cassandra constructor
     protected Event() {};
 
+    public Event(EventForm eventForm) {
+
+        this.name = eventForm.getName();
+        this.eventUrl = eventForm.getEventUrl();
+
+        if (this.name == null || this.eventUrl == null)
+            throw new IllegalArgumentException("name nor event url can be null");
+
+        String tempCompositeKey = name + eventUrl;
+        // This exception should never happen, MD5 should always be present
+        try {
+
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(tempCompositeKey.getBytes());
+            byte[] digest = messageDigest.digest();
+
+            String eventKeyHash = DatatypeConverter.printHexBinary(digest);
+
+            this.eventKey = eventKeyHash;
+        } catch (NoSuchAlgorithmException e) {
+            throw new AssertionError(e);
+        }
+
+        this.socialNetworkingTitle = eventForm.getName();
+        this.memo = eventForm.getMemo();
+        this.eventUrl = eventForm.getEventUrl();
+        this.jvcUrl = eventForm.getJvcUrl();
+        this.openDate = eventForm.getOpenDate();
+
+        this.schedules = Schedule.createSchedules(eventForm.getSchedules());
+
+    }
+
     // Modified Accessors ********************************************
 
     /**
      * Crude way of determining if an {@link Event} is active or not. Gets the current date for both the Line Islands
      * (Location with the latest TimeZone) and the Baker Islands (Location with the earliest TimesZone) and uses them to see
      * if the {@link Event}'s schedule dates have past or not. For an {@link Event} to not have happened the Line Islands
-     * current date must be before the {@link Event}'s first schedle. For an {@link Event} to already have happened the Baker
-     * Islands current date must be past the {@link Event}'s last schedule.
+     * current date must be before the {@link Event}'s first schedule. For an {@link Event} to already have happened the
+     * Baker Islands current date must be past the {@link Event}'s last schedule.
      * 
-     * @return boolean True if event is active, false otherwise.
+     * @return boolean true if event is active, false otherwise.
      */
     public boolean isEventActive() {
 
