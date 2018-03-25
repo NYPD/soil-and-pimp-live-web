@@ -87,7 +87,7 @@ public class Event {
 
         this.name = eventForm.getName();
         this.eventUrl = eventForm.getEventUrl();
-        this.socialNetworkingTitle = eventForm.getName();
+        this.socialNetworkingTitle = eventForm.getSocialNetworkingTitle();
         this.memo = eventForm.getMemo();
         this.eventUrl = eventForm.getEventUrl();
         this.jvcUrl = eventForm.getJvcUrl();
