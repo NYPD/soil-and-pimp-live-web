@@ -17,14 +17,17 @@
     
       <div class="row">
         <div class="col-xs-12">
-        
           <h1>Unsubscribe</h1>
-          
+        </div>
+        
+        <div class="col-xs-6">
           <p>
-            Don't want to receive event notification emails anymore? Well, we don't want you either. Submit your email below and we will delete from
-            our servers so you can get out of here.
+            Don't want to receive event notification emails anymore? Well, we don't want you either. Submit your email on the right and we 
+            will gladly delete it from our servers so you can get out of here.
           </p>
-          
+        </div> 
+        
+        <div class="col-xs-6">
           <form class="form-inline">
             <div class="form-group">
               <label for="email">Email Address</label>
@@ -32,7 +35,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Unsubscribe</button>
           </form>
-
         </div>
       </div>
         
