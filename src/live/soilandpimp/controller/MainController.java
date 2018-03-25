@@ -39,4 +39,19 @@ public class MainController {
         return modelAndView;
     }
 
+    @RequestMapping("/about")
+    public ModelAndView getAboutPage() {
+        return new ModelAndView("about");
+    }
+
+    @RequestMapping("/privacy-policy")
+    public ModelAndView getPrivacyPolicyPage() {
+        return new ModelAndView("privacy-policy");
+    }
+
+    @RequestMapping("/unsubscribe")
+    public ModelAndView getUnsubscribePage() {
+        return new ModelAndView("unsubscribe");
+    }
+
 }

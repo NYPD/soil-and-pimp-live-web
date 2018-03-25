@@ -17,7 +17,7 @@ public class MainRestController {
 
     @RequestMapping("subscribe")
     public ModelAndView getSubscribeModal() {
-        return new ModelAndView("modal/global/subscribe-modal");
+        return new ModelAndView("modal/subscribe");
     }
 
     @RequestMapping(value = "submit-email", method = RequestMethod.POST)

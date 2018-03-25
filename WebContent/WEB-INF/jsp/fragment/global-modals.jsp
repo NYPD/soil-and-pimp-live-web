@@ -18,13 +18,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-danger">Error</h4>
+        <h4 class="modal-title">Error</h4>
       </div>
       <div class="modal-body">
         <p class="text-danger">Something went wrong, please try again later. If this keeps happening, please submit a bug report.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-error" data-dismiss="modal">OK</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
       </div>
     </div>
   </div>

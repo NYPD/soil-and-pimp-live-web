@@ -1,15 +1,38 @@
 document.getElementById('event-table').addEventListener('click', function(event) {
   
-  var target = event.target;
-  if(!target.classList.contains('edit-event')) return;
+  let target = event.target;
   
-  var eventKey = target.getAttribute('data-event-key');
+  let isEditEvent = target.classList.contains('edit-event');
+  let isDeleteEvent = target.classList.contains('delete-event');
+  
+  if(!isEditEvent && !isDeleteEvent) return;
+  
+  var eventKey = target.parentElement.getAttribute('data-event-key');
+  
+  if(isEditEvent)
+    editEvent(eventKey);
+  else
+    deleteEvent(eventKey); 
+});
+
+function editEvent(eventKey) {
   
   var $getEditEventModalContentPromise = $.get('/admin/get-edit-event-modal-content', {eventKey: eventKey});
   
   $getEditEventModalContentPromise.done(function(modalContent) {
-    $largeMedium.find('.modal-dialog').html(modalContent);
-    $largeMedium.modal('show');
+    $modalLarge.find('.modal-dialog').html(modalContent);
+    $modalLarge.modal('show');
   });
   
-});
+}
+
+function deleteEvent(eventKey) {
+  
+   var $getEditEventModalContentPromise = $.get('/admin/get-delete-event-modal-content', {eventKey: eventKey});
+   
+   $getEditEventModalContentPromise.done(function(modalContent) {
+     $modalSmall.find('.modal-dialog').html(modalContent);
+     $modalSmall.modal('show');
+   });
+   
+ }

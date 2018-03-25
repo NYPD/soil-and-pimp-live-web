@@ -1,6 +1,6 @@
 // Variables
 const subscribeButton = document.getElementById('subscribe');
-const $largeMedium = $('#global-large-modal');
+const $modalLarge = $('#global-large-modal');
 const $modalMedium = $('#global-medium-modal');
 const $modalSmall = $('#global-small-modal');
 const $errorModal = $('#error-modal');

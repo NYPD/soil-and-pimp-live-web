@@ -3,11 +3,22 @@
 
 <link href="${context}/css/modal/edit-event.css" rel="stylesheet">
 
-<div class="modal-content">
+<c:choose>
+  <c:when test="${empty event}">
+    <c:set var="modalTitle" value="Add Event"/>
+  </c:when>
+  <c:otherwise>
+    <c:set var="modalTitle" value="Edit Event"/>
+  </c:otherwise>
+</c:choose>
+
+<div class="modal-content event-modal-content">
+
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">Subscribe</h4>
+    <h4 class="modal-title">${modalTitle}</h4>
   </div>
+  
   <div class="modal-body">
   
     <div class="row">
@@ -15,42 +26,47 @@
         <h3>Event</h3>
       </div>
     </div>
-    
+
     <form class="form-horizontal">
+      
+      <c:if test="${not empty event}">
+        <input type="hidden" name="eventKey" id="event-key" value="${event.eventKey}">
+      </c:if>
+      
       <div class="form-group">
         <label for="event-name" class="col-sm-3 control-label">Name:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control alpha alpha-email" id="event-name" value="${event.name}">
+          <input type="text" class="form-control" id="event-name" name="name" value="${event.name}" required>
         </div>
       </div>
       <div class="form-group">
         <label for="social-networking-name" class="col-sm-3 control-label">Social Networking Title:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control alpha alpha-email" id="social-networking-name" value="${event.socialNetworkingTitle}">
+          <input type="text" class="form-control" id="social-networking-name" name="socialNetworkingTitle" value="${event.socialNetworkingTitle}">
         </div>
       </div>
       <div class="form-group">
         <label for="memo" class="col-sm-3 control-label">Memo:</label>
         <div class="col-sm-9">
-          <textarea rows="4" class="form-control" id="memo">${event.memo}</textarea>
+          <textarea rows="4" class="form-control" id="memo" name="memo">${event.memo}</textarea>
         </div>
       </div>
       <div class="form-group">
         <label for="event-url" class="col-sm-3 control-label">Event URL:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control alpha alpha-email" id="event-url" value="${event.eventUrl}">
+          <input type="text" class="form-control" id="event-url" name="eventUrl" value="${event.eventUrl}" required>
         </div>
       </div>
       <div class="form-group">
         <label for="jvc-url" class="col-sm-3 control-label">JVC URL:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control alpha alpha-email" id="jvc-url" value="${event.jvcUrl}">
+          <input type="text" class="form-control" id="jvc-url" name="jvcUrl" value="${event.jvcUrl}">
         </div>
       </div>
       <div class="form-group">
         <label for="open-date" class="col-sm-3 control-label">Open Date:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control alpha alpha-email" id="open-date" value="${event.openDate}">
+          <input type="text" class="form-control" id="open-date" name="openDate" value="${event.openDate}" placeholder="yyyy-mmm-ddThh:mm:ss">
         </div>
       </div>
     </form>
@@ -73,28 +89,30 @@
               </tr>
             </thead>
             <tbody>
-              <c:forEach items="${event.schedules}" var="schedule">
+              <c:forEach items="${event.schedules}" var="schedule" varStatus="loopTagStatus">
+                
+                <c:set var="index" value="${loopTagStatus.index}"/>
                 <tr>
                   <td>
-                    <input type="text" class="form-control form-small alpha alpha-email" value="${schedule.date}">
+                    <input type="text" class="form-control form-small" name="schedules[${index}].date" value="${schedule.date}" placeholder="yyyy-mmm-dd" required>
                   </td>
                   <td>
-                    <input type="text" class="form-control form-small alpha alpha-email" value="${schedule.enterTime}">
+                    <input type="text" class="form-control form-small" name="schedules[${index}].enterTime" value="${schedule.enterTime}" placeholder="hh:mm:ss">
                   </td>
                   <td>
-                    <input type="text" class="form-control form-small alpha alpha-email" value="${schedule.startTime}">
+                    <input type="text" class="form-control form-small" name="schedules[${index}].startTime" value="${schedule.startTime}" placeholder="hh:mm:ss">
                   </td>
                   <td>
-                    <input type="text" class="form-control form-small alpha alpha-email" value="${schedule.prefecture}">
+                    <input type="text" class="form-control form-small" name="schedules[${index}].prefecture" value="${schedule.prefecture}">
                   </td>
                   <td>
-                    <input type="text" class="form-control form-big alpha alpha-email" value="${schedule.place}">
+                    <input type="text" class="form-control form-big" name="schedules[${index}].place" value="${schedule.place}" required>
                   </td>
                   <td>
-                    <textarea rows="2" class="form-control form-big alpha alpha-email">${schedule.memo}</textarea>
+                    <textarea rows="2" class="form-control form-big" name="schedules[${index}].memo">${schedule.memo}</textarea>
                   </td>
                   <td>
-                    <input type="text" class="form-control form-big alpha alpha-email"value="${schedule.link}">
+                    <input type="text" class="form-control form-big" name="schedules[${index}].link" value="${schedule.link}">
                   </td>
                 </tr>
               </c:forEach>
@@ -105,12 +123,9 @@
     </div>
   </div>
   <div class="modal-footer">
-  
-    <p class="text-success success-subscribe-message">Successfully subscribed!</p>
-  
     <a type="button" class="btn btn-default" data-dismiss="modal">Cancel</a>
     <a type="button" class="btn btn-primary" id="save-event">Save</a>
   </div>
 </div>
 
-<script src="${context}/js/modal/subscribe.js?v=${projectVersion}"></script>
+<script src="${context}/js/modal/edit-add-event.js?v=${projectVersion}"></script>

@@ -22,6 +22,10 @@
         <div class="col-xs-12">
           <h1>All Events</h1>
         </div>
+        
+        <div class="col-xs-12 text-right">
+           <a type="button" class="btn btn-primary">Add Event</a>
+        </div>
       </div>
       
       <div class="row">
@@ -29,19 +33,20 @@
           <table class="table table-hover table-striped" id="event-table">
             <thead>
               <tr>
-                <th></th>
+                <th class="edit-column"></th>
                 <th>Name</th>
-                <th>Schedules</th>
+                <th class="text-right">Schedules</th>
               </tr>
             </thead>
             <tbody>
               <c:forEach items="${allEvents}" var="event">
                 <tr>
-                  <td>
-                    <a class="cursor-pointer edit-event" data-event-key="${event.eventKey}">Edit</a>
+                  <td data-event-key="${event.eventKey}">
+                    <i class="fa fa-pencil fa-lg edit-event text-primary" aria-hidden="true"></i>
+                    <i class="fa fa-ban fa-lg delete-event text-danger" aria-hidden="true"></i>
                   </td>
                   <td>${event.name}</td>
-                  <td>${event.schedules.size()}</td>
+                  <td class="text-right">${event.schedules.size()}</td>
                 </tr>
               </c:forEach>
             </tbody>
