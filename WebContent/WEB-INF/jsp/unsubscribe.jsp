@@ -17,7 +17,22 @@
     
       <div class="row">
         <div class="col-xs-12">
+        
           <h1>Unsubscribe</h1>
+          
+          <p>
+            Don't want to receive event notification emails anymore? Well, we don't want you either. Submit your email below and we will delete from
+            our servers so you can get out of here.
+          </p>
+          
+          <form class="form-inline">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" class="form-control" id="email" placeholder="midorin@email.com">
+            </div>
+            <button type="submit" class="btn btn-primary">Unsubscribe</button>
+          </form>
+
         </div>
       </div>
         
