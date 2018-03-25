@@ -3,6 +3,8 @@ package live.soilandpimp.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 public class EventForm {
 
     private String eventKey;
@@ -69,6 +71,8 @@ public class EventForm {
     }
 
     public void setOpenDate(String openDate) {
+
+        if (StringUtils.isBlank(openDate)) return;
         this.openDate = LocalDateTime.parse(openDate);
     }
 

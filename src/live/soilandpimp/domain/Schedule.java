@@ -52,6 +52,8 @@ public class Schedule {
 
     public static List<Schedule> createSchedules(Collection<ScheduleForm> scheduleForms) {
 
+        if (scheduleForms == null) return null;
+
         List<Schedule> schedules = new ArrayList<>();
 
         for (ScheduleForm scheduleForm : scheduleForms)

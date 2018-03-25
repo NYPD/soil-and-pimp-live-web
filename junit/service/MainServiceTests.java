@@ -18,7 +18,7 @@ import live.soilandpimp.model.HomeEvents;
 import live.soilandpimp.repository.EventsRepository;
 import live.soilandpimp.service.DefaultMainService;
 
-public class HomeServiceTests {
+public class MainServiceTests {
 
     private DefaultMainService homeService = new DefaultMainService();
 

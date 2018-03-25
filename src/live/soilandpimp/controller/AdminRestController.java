@@ -17,13 +17,22 @@ public class AdminRestController {
     @Autowired
     private MainService mainService;
 
-    @RequestMapping("/get-edit-event-modal-content")
-    public ModelAndView getEditEventModalContent(@RequestParam("eventKey") String eventKey) {
+    @RequestMapping("/get-edit-add-event-modal-content")
+    public ModelAndView getEditAddEventModalContent(@RequestParam(value = "eventKey", required = false) String eventKey) {
 
         Event event = mainService.getEvent(eventKey);
 
         ModelAndView modelAndView = new ModelAndView("modal/edit-add-event");
         modelAndView.addObject("event", event);
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/get-add-schedule-row-content")
+    public ModelAndView getAddScheduleRowContent(@RequestParam("index") int index) {
+
+        ModelAndView modelAndView = new ModelAndView("fragment/schedule-modal-row");
+        modelAndView.addObject("index", index);
 
         return modelAndView;
     }
@@ -41,7 +50,6 @@ public class AdminRestController {
     }
 
     @RequestMapping("/get-delete-event-modal-content")
-
     public ModelAndView getDeleteEventModalContent(@RequestParam("eventKey") String eventKey) {
 
         Event event = mainService.getEvent(eventKey);

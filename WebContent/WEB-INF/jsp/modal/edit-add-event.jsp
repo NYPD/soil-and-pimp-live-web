@@ -74,9 +74,16 @@
     <div class="row">
       <div class="col-xs-12">
         <h3>Schedules</h3>
+      </div>
+        
+      <div class="col-xs-12 text-right">
+         <a type="button" class="btn btn-primary" id="add-schedule">Add Schedule</a>
+      </div>
+      
+      <div class="col-xs-12">
         
         <div class="table-responsive">
-          <table class="table table-hover table-striped" id="event-table">
+          <table class="table table-hover table-striped" id="schedule-table">
             <thead>
               <tr>
                 <th>Date</th>
@@ -90,31 +97,8 @@
             </thead>
             <tbody>
               <c:forEach items="${event.schedules}" var="schedule" varStatus="loopTagStatus">
-                
                 <c:set var="index" value="${loopTagStatus.index}"/>
-                <tr>
-                  <td>
-                    <input type="text" class="form-control form-small" name="schedules[${index}].date" value="${schedule.date}" placeholder="yyyy-mmm-dd" required>
-                  </td>
-                  <td>
-                    <input type="text" class="form-control form-small" name="schedules[${index}].enterTime" value="${schedule.enterTime}" placeholder="hh:mm:ss">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control form-small" name="schedules[${index}].startTime" value="${schedule.startTime}" placeholder="hh:mm:ss">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control form-small" name="schedules[${index}].prefecture" value="${schedule.prefecture}">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control form-big" name="schedules[${index}].place" value="${schedule.place}" required>
-                  </td>
-                  <td>
-                    <textarea rows="2" class="form-control form-big" name="schedules[${index}].memo">${schedule.memo}</textarea>
-                  </td>
-                  <td>
-                    <input type="text" class="form-control form-big" name="schedules[${index}].link" value="${schedule.link}">
-                  </td>
-                </tr>
+                <%@ include file="../fragment/schedule-modal-row.jsp" %>
               </c:forEach>
             </tbody>
           </table>

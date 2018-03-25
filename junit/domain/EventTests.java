@@ -1,6 +1,7 @@
 package domain;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -17,6 +18,7 @@ import org.junit.Test;
 
 import live.soilandpimp.domain.Event;
 import live.soilandpimp.domain.Schedule;
+import live.soilandpimp.model.EventForm;
 
 public class EventTests {
 
@@ -26,7 +28,7 @@ public class EventTests {
     @BeforeClass
     public static void setUp() throws Exception {
 
-        Constructor<Event> constructor = (Constructor<Event>) Event.class.getDeclaredConstructors()[0];
+        Constructor<Event> constructor = (Constructor<Event>) Event.class.getDeclaredConstructors()[1];
         constructor.setAccessible(true);
 
         event = constructor.newInstance();
@@ -113,5 +115,34 @@ public class EventTests {
 
         assertThat(event.isEventActive(), is(true));
         assertThat(event.getActiveSchedule(), is(activeSchedule));
+    }
+
+    @Test
+    public void shouldCreateNewEvent() throws Exception {
+
+        EventForm eventForm = new EventForm();
+        eventForm.setName("a");
+        eventForm.setEventUrl("");
+
+        Event newEvent = new Event(eventForm);
+        assertThat(newEvent.getEventKey(), is(notNullValue()));
+
+    }
+
+    @Test
+    public void shouldUpdateEvent() throws Exception {
+
+        Field field = event.getClass().getDeclaredField("eventKey");
+        field.setAccessible(true);
+        field.set(event, "beans");
+
+        EventForm eventForm = new EventForm();
+        eventForm.setName("a");
+        eventForm.setEventUrl("");
+
+        assertThat(event.getEventKey(), is("beans"));
+        event.updateEvent(eventForm);
+        assertThat(event.getEventKey(), is("beans"));
+
     }
 }

@@ -24,7 +24,7 @@
         </div>
         
         <div class="col-xs-12 text-right">
-           <a type="button" class="btn btn-primary">Add Event</a>
+           <a type="button" class="btn btn-primary" id="add-event">Add Event</a>
         </div>
       </div>
       
@@ -40,8 +40,8 @@
             </thead>
             <tbody>
               <c:forEach items="${allEvents}" var="event">
-                <tr>
-                  <td data-event-key="${event.eventKey}">
+                <tr class="event-row" data-event-key="${event.eventKey}">
+                  <td>
                     <i class="fa fa-pencil fa-lg edit-event text-primary" aria-hidden="true"></i>
                     <i class="fa fa-ban fa-lg delete-event text-danger" aria-hidden="true"></i>
                   </td>

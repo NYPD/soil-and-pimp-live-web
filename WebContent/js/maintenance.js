@@ -1,3 +1,10 @@
+let addEventButton = document.getElementById('add-event');
+
+addEventButton.addEventListener('click', function(event) {
+  editAddEvent();
+});
+
+
 document.getElementById('event-table').addEventListener('click', function(event) {
   
   let target = event.target;
@@ -7,17 +14,20 @@ document.getElementById('event-table').addEventListener('click', function(event)
   
   if(!isEditEvent && !isDeleteEvent) return;
   
-  var eventKey = target.parentElement.getAttribute('data-event-key');
+  var eventKey = target.parentElement.parentElement.getAttribute('data-event-key');
   
   if(isEditEvent)
-    editEvent(eventKey);
+    editAddEvent(eventKey);
   else
     deleteEvent(eventKey); 
 });
 
-function editEvent(eventKey) {
+function editAddEvent(eventKey) {
   
-  var $getEditEventModalContentPromise = $.get('/admin/get-edit-event-modal-content', {eventKey: eventKey});
+  var eventKeyIsUndefined = eventKey === undefined;
+  
+  var $getEditEventModalContentPromise = eventKeyIsUndefined? $.get('/admin/get-edit-add-event-modal-content') : 
+                                                              $.get('/admin/get-edit-add-event-modal-content', {eventKey: eventKey});
   
   $getEditEventModalContentPromise.done(function(modalContent) {
     $modalLarge.find('.modal-dialog').html(modalContent);

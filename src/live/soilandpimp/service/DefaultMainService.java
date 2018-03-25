@@ -73,6 +73,9 @@ public class DefaultMainService implements MainService {
 
     @Override
     public Event getEvent(String eventKey) {
+
+        if (eventKey == null) return null;
+
         Optional<Event> event = eventsRepository.findById(eventKey);
         return event.isPresent()? event.get() : null;
     }
@@ -85,7 +88,21 @@ public class DefaultMainService implements MainService {
     @Override
     public Event saveEvent(EventForm eventForm) {
 
-        return null;
+        boolean isNewEvent = eventForm.getEventKey() == null;
+
+        Event event = null;
+
+        if (isNewEvent) {
+            event = new Event(eventForm);
+        } else {
+            event = eventsRepository.findById(eventForm.getEventKey()).get();
+            event.updateEvent(eventForm);
+            eventsRepository.save(event);
+        }
+
+        eventsRepository.save(event);
+
+        return event;
     }
 
     @Override

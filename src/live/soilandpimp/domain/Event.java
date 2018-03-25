@@ -60,8 +60,7 @@ public class Event {
 
     public Event(EventForm eventForm) {
 
-        this.name = eventForm.getName();
-        this.eventUrl = eventForm.getEventUrl();
+        this.updateEvent(eventForm);
 
         if (this.name == null || this.eventUrl == null)
             throw new IllegalArgumentException("name nor event url can be null");
@@ -81,6 +80,13 @@ public class Event {
             throw new AssertionError(e);
         }
 
+    }
+
+    // Modified Accessors ********************************************
+    public void updateEvent(EventForm eventForm) {
+
+        this.name = eventForm.getName();
+        this.eventUrl = eventForm.getEventUrl();
         this.socialNetworkingTitle = eventForm.getName();
         this.memo = eventForm.getMemo();
         this.eventUrl = eventForm.getEventUrl();
@@ -88,10 +94,7 @@ public class Event {
         this.openDate = eventForm.getOpenDate();
 
         this.schedules = Schedule.createSchedules(eventForm.getSchedules());
-
     }
-
-    // Modified Accessors ********************************************
 
     /**
      * Crude way of determining if an {@link Event} is active or not. Gets the current date for both the Line Islands
