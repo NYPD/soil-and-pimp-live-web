@@ -23,36 +23,39 @@
           <h1>All Events</h1>
         </div>
         
-        <div class="col-xs-12 text-right">
+        <div class="col-xs-12 event-table-functions">
            <a type="button" class="btn btn-primary" id="add-event">Add Event</a>
         </div>
       </div>
       
       <div class="row">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped" id="event-table">
-            <thead>
-              <tr>
-                <th class="edit-column"></th>
-                <th>Name</th>
-                <th class="text-right">Schedules</th>
-              </tr>
-            </thead>
-            <tbody>
-              <c:forEach items="${allEvents}" var="event">
-                <tr class="event-row" data-event-key="${event.eventKey}">
-                  <td>
-                    <i class="fa fa-pencil fa-lg edit-event text-primary" aria-hidden="true"></i>
-                    <i class="fa fa-ban fa-lg delete-event text-danger" aria-hidden="true"></i>
-                  </td>
-                  <td>${event.name}</td>
-                  <td class="text-right">${event.schedules.size()}</td>
-                </tr>
-              </c:forEach>
-            </tbody>
-          </table>
-        </div>
+        <div class="col-xs-12">
         
+          <div class="table-responsive">
+            <table class="table table-hover table-striped" id="event-table">
+              <thead>
+                <tr>
+                  <th class="edit-column"></th>
+                  <th>Name</th>
+                  <th class="text-right">Schedules</th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:forEach items="${allEvents}" var="event">
+                  <tr class="event-row" data-event-key="${event.eventKey}">
+                    <td>
+                      <i class="fa fa-pencil fa-lg edit-event text-primary" aria-hidden="true"></i>
+                      <i class="fa fa-ban fa-lg delete-event text-danger" aria-hidden="true"></i>
+                    </td>
+                    <td>${event.name}</td>
+                    <td class="text-right">${event.schedules.size()}</td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
       </div>
       
     </div>
