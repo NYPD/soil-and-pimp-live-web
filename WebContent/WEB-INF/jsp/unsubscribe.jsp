@@ -38,7 +38,7 @@
           <form class="form-inline">
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" class="form-control alpha alpha-email" id="email" placeholder="midorin@email.com" required>
+              <input type="email" class="form-control alpha alpha-email" id="email" placeholder="midorin@email.com" value ="${emailAddress}" required>
             </div>
             <a type="button" class="btn btn-primary" id="unsubscribe">Unsubscribe</a>
           </form>

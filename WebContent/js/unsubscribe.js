@@ -11,18 +11,30 @@ unsubscribeButton.addEventListener('click', function() {
     return;
   }
   
-  let $unsubscribePromise = $.post('unsubscribe-email', {email: emailInput.value});
+  let $unsubscribePromise = $.post('unsubscribe-email-from-site', {email: emailInput.value});
   
   $unsubscribePromise.done(function() {
     
-    unsubscribeAlertSuccess.classList.add('show');
-    
-    window.setTimeout(function() {
-      
-      unsubscribeAlertSuccess.classList.remove('show');
-      
-    }, 5000);
+    showSuccessAlert();
     
   });
   
 });
+
+
+if(emailInput.value !== '') showSuccessAlert();
+
+
+function showSuccessAlert() {
+  
+  unsubscribeAlertSuccess.classList.add('show');
+  
+  window.setTimeout(function() {
+    
+    unsubscribeAlertSuccess.classList.remove('show');
+    
+  }, 5000);
+}
+  
+  
+  

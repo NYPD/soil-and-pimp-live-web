@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import live.soilandpimp.annotation.DefaultController;
@@ -15,12 +16,12 @@ import live.soilandpimp.service.MainService;
 public class MainController {
 
     @Autowired
-    private MainService eventService;
+    private MainService mainService;
 
     @RequestMapping(value = "", produces = "text/html;charset=UTF-8")
     public ModelAndView getHomePage() {
 
-        HomeEvents homeEvents = eventService.getHomeEvents();
+        HomeEvents homeEvents = mainService.getHomeEvents();
 
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("homeEvents", homeEvents);
@@ -31,7 +32,7 @@ public class MainController {
     @RequestMapping(value = "/past-events", produces = "text/html;charset=UTF-8")
     public ModelAndView getPastEventsPage() {
 
-        List<Event> pastEvents = eventService.getPastEvents();
+        List<Event> pastEvents = mainService.getPastEvents();
 
         ModelAndView modelAndView = new ModelAndView("past-events");
         modelAndView.addObject("pastEvents", pastEvents);
@@ -52,6 +53,17 @@ public class MainController {
     @RequestMapping("/unsubscribe")
     public ModelAndView getUnsubscribePage() {
         return new ModelAndView("unsubscribe");
+    }
+
+    @RequestMapping("/unsubscribe-from-email")
+    public ModelAndView getUnsubscribeFromEmailPage(@RequestParam("email") String emailAddress) {
+
+        mainService.emailUnsubscribe(emailAddress);
+
+        ModelAndView modelAndView = new ModelAndView("unsubscribe");
+        modelAndView.addObject("emailAddress", emailAddress);
+
+        return modelAndView;
     }
 
 }
