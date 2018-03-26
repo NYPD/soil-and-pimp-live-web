@@ -24,4 +24,9 @@ public class MainRestController {
     public void submitEmail(@RequestParam("email") String emailAddress) {
         mainService.addEmailSubscription(emailAddress);
     }
+
+    @RequestMapping(value = "unsubscribe-email", method = RequestMethod.POST)
+    public void unsubsxcribeEmail(@RequestParam("email") String emailAddress) {
+        mainService.emailUnsubscribe(emailAddress);
+    }
 }

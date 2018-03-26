@@ -6,6 +6,8 @@
   <head>
     <%@ include file="fragment/head-block.jsp" %>
     
+    <link href="${context}/css/unsubscribe.css" rel="stylesheet">
+    
     <title>SOIL &amp; "PIMP" LIVE - Unsubscribe</title>
   </head>
   
@@ -16,9 +18,13 @@
     <div class="container">
     
       <div class="row">
+      
         <div class="col-xs-12">
           <h1>Unsubscribe</h1>
         </div>
+      
+      </div>
+      <div class="row">
         
         <div class="col-xs-6">
           <p>
@@ -28,16 +34,20 @@
         </div> 
         
         <div class="col-xs-6">
+        
           <form class="form-inline">
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" class="form-control" id="email" placeholder="midorin@email.com">
+              <input type="email" class="form-control alpha alpha-email" id="email" placeholder="midorin@email.com" required>
             </div>
-            <button type="submit" class="btn btn-primary">Unsubscribe</button>
+            <a type="button" class="btn btn-primary" id="unsubscribe">Unsubscribe</a>
           </form>
+          
+          <div class="alert alert-success" role="alert" id="success-unsubscribe">Successfully unsubscribed</div>
+          
         </div>
       </div>
-        
+      
     </div>
 
     <%@ include file="fragment/footer.jsp" %>
@@ -47,6 +57,7 @@
     
     <!-- Scripts -->
     <%@ include file="fragment/global-javascript.jsp" %>
+    <script src="${context}/js/unsubscribe.js"></script>
   </body>
 
 </html>

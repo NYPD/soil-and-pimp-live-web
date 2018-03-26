@@ -111,4 +111,9 @@ public class DefaultMainService implements MainService {
         emailRepository.save(emailSubscription);
     }
 
+    @Override
+    public void emailUnsubscribe(String emailAddress) {
+        emailRepository.deleteById(emailAddress);
+    }
+
 }

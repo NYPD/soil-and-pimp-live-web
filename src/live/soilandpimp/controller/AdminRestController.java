@@ -2,6 +2,7 @@ package live.soilandpimp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +38,7 @@ public class AdminRestController {
         return modelAndView;
     }
 
-    @RequestMapping("/save-event")
+    @RequestMapping(value = "/save-event", method = RequestMethod.POST)
     public ModelAndView saveEvent(EventForm eventForm) {
 
         Event event = mainService.saveEvent(eventForm);
@@ -61,7 +62,7 @@ public class AdminRestController {
 
     }
 
-    @RequestMapping("/delete-event")
+    @RequestMapping(value = "/delete-event", method = RequestMethod.POST)
     public void deleteEvent(@RequestParam("eventKey") String eventKey) {
         mainService.deleteEvent(eventKey);
     }

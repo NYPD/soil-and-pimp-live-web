@@ -21,4 +21,6 @@ public interface MainService {
     public Event saveEvent(EventForm eventForm);
 
     public void addEmailSubscription(String emailAddress);
+
+    public void emailUnsubscribe(String emailAddress);
 }
