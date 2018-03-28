@@ -56,7 +56,9 @@
                       <div class="col-xs-6 col-md-4 col-lg-3 schedule">
                         <div class="thumbnail">
                           <div class="caption">
-                            <h3 class="date-title" data-date-time-stamp="${schedule.dateAsTimeStamp}"></h3>
+                            <h3 class="date-title" data-date-year="${schedule.date.getYear()}" 
+                                                   data-date-month="${schedule.date.getMonthValue() - 1}" 
+                                                   data-date-day="${schedule.date.getDayOfMonth()}"></h3>
                             
                             <dl>
                               <c:if test="${not empty schedule.place}">

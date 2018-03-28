@@ -48,10 +48,6 @@ public class Schedule {
     }
 
     // Modified Accessors *********************************************
-    public long getDateAsTimeStamp() {
-        return date.toEpochDay() * 24 * 60 * 60 * 1000;
-    }
-
     public static List<Schedule> createSchedules(Collection<ScheduleForm> scheduleForms) {
 
         if (scheduleForms == null) return null;

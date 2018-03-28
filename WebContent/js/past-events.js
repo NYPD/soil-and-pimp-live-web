@@ -1,14 +1,18 @@
 //Initialization
 document.querySelectorAll('.schedule .date-title').forEach(function(element) {
-  var timeStamp = Number.parseInt(element.getAttribute('data-date-time-stamp'));
-  element.innerHTML = new Date(timeStamp).toLocaleDateString();
+  
+  let year = Number.parseInt(element.getAttribute('data-date-year'));
+  let month = Number.parseInt(element.getAttribute('data-date-month'));
+  let day = Number.parseInt(element.getAttribute('data-date-day'));
+  
+  element.innerHTML = new Date(year, month, day).toLocaleDateString();
 });
 
 document.querySelectorAll('.event-container').forEach(function(row) {
   
-  var thumbnails = row.querySelectorAll('.schedule .thumbnail');
+  let thumbnails = row.querySelectorAll('.schedule .thumbnail');
   
-  var tallestThumbnailSize = 0;
+  let tallestThumbnailSize = 0;
 
   for (var i = 0; i < thumbnails.length; i++) {
     var offsetHeight = thumbnails[i].offsetHeight;
@@ -21,4 +25,4 @@ document.querySelectorAll('.event-container').forEach(function(row) {
   
 });
 
-$('i[data-toggle="tooltip"]').tooltip()
+$('i[data-toggle="tooltip"]').tooltip();
