@@ -140,6 +140,14 @@
                                         <i class="fa fa-link fa-lg" aria-hidden="true"></i>
                                       </a>
                                     </c:if>
+                                    
+                                    <c:if test="${not empty schedule.call}">
+                                      <i class="fa fa-phone fa-lg" aria-hidden="true" data-toggle="tooltip" 
+                                                                                      data-placement="bottom" 
+                                                                                      data-container="body" 
+                                                                                      data-html="true"
+                                                                                      title="${schedule.call}"></i>
+                                    </c:if>
                                   </dt>
                                   <dd>
                                     <span>${schedule.place}</span>

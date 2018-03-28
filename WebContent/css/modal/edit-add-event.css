@@ -1,0 +1,16 @@
+#event-memo {
+  min-height: 50px;
+  resize: vertical;
+}
+
+.modal .form-small {
+  min-width: 105px;
+}
+.modal .form-big {
+  min-width: 200px;
+}
+
+#schedule-table .fa-trash-o {
+  padding-top: 2px;
+  cursor: pointer;
+} 

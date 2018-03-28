@@ -1,6 +1,20 @@
 var saveEventButton = document.getElementById('save-event');
 var addScheduleButton = document.getElementById('add-schedule');
+var scheduleTable = document.getElementById('schedule-table');
 var eventTable = document.getElementById('event-table');
+
+
+scheduleTable.addEventListener('click', function(event) {
+  
+  let target = event.target;
+  
+  let isDeleteIcon = target.classList.contains('delete-schedule');
+  if(!isDeleteIcon) return;
+  
+  let trToDelete = target.parentElement.parentElement;
+  trToDelete.parentElement.removeChild(trToDelete);
+  
+});
 
 saveEventButton.addEventListener('click', function() {
   

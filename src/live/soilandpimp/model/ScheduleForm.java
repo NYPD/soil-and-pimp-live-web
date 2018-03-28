@@ -9,12 +9,13 @@ public class ScheduleForm {
     private String startTime;
     private String prefecture;
     private String place;
+    private String call;
     private String memo;
     private String link;
 
     // Default Accessors *********************************************
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
 
     public void setDate(String date) {
@@ -22,7 +23,7 @@ public class ScheduleForm {
     }
 
     public String getEnterTime() {
-        return enterTime;
+        return this.enterTime;
     }
 
     public void setEnterTime(String enterTime) {
@@ -30,7 +31,7 @@ public class ScheduleForm {
     }
 
     public String getStartTime() {
-        return startTime;
+        return this.startTime;
     }
 
     public void setStartTime(String startTime) {
@@ -38,7 +39,7 @@ public class ScheduleForm {
     }
 
     public String getPrefecture() {
-        return prefecture;
+        return this.prefecture;
     }
 
     public void setPrefecture(String prefecture) {
@@ -46,15 +47,23 @@ public class ScheduleForm {
     }
 
     public String getPlace() {
-        return place;
+        return this.place;
     }
 
     public void setPlace(String place) {
         this.place = place;
     }
 
+    public String getCall() {
+        return this.call;
+    }
+
+    public void setCall(String call) {
+        this.call = call;
+    }
+
     public String getMemo() {
-        return memo;
+        return this.memo;
     }
 
     public void setMemo(String memo) {
@@ -62,7 +71,7 @@ public class ScheduleForm {
     }
 
     public String getLink() {
-        return link;
+        return this.link;
     }
 
     public void setLink(String link) {
@@ -71,8 +80,10 @@ public class ScheduleForm {
 
     @Override
     public String toString() {
-        return "ScheduleForm [date=" + date + ", enterTime=" + enterTime + ", startTime=" + startTime + ", prefecture="
-                + prefecture + ", place=" + place + ", memo=" + memo + ", link=" + link + "]";
+        return "ScheduleForm [date=" + this.date + ", enterTime=" + this.enterTime + ", startTime=" + this.startTime
+               + ", prefecture="
+               + this.prefecture + ", place=" + this.place + ", call=" + this.call + ", memo=" + this.memo + ", link="
+               + this.link + "]";
     }
 
 }

@@ -29,6 +29,7 @@ public class Schedule {
     private String startTime;
     private String prefecture;
     private String place;
+    private String call;
     private String memo;
     private String link;
 
@@ -36,13 +37,14 @@ public class Schedule {
     protected Schedule() {}
 
     public Schedule(ScheduleForm scheduleForm) {
-        this.date = scheduleForm.getDate();
-        this.enterTime = scheduleForm.getEnterTime();
-        this.startTime = scheduleForm.getStartTime();
-        this.prefecture = scheduleForm.getPrefecture();
-        this.place = scheduleForm.getPlace();
-        this.memo = scheduleForm.getMemo();
-        this.link = scheduleForm.getLink();
+        date = scheduleForm.getDate();
+        enterTime = scheduleForm.getEnterTime();
+        startTime = scheduleForm.getStartTime();
+        prefecture = scheduleForm.getPrefecture();
+        place = scheduleForm.getPlace();
+        call = scheduleForm.getCall();
+        memo = scheduleForm.getMemo();
+        link = scheduleForm.getLink();
     }
 
     // Modified Accessors *********************************************
@@ -56,8 +58,16 @@ public class Schedule {
 
         List<Schedule> schedules = new ArrayList<>();
 
-        for (ScheduleForm scheduleForm : scheduleForms)
+        for (ScheduleForm scheduleForm : scheduleForms) {
+
+            boolean noSchedule = scheduleForm == null;
+            boolean noDate = !noSchedule && scheduleForm.getDate() == null;
+            boolean noPlace = !noSchedule && scheduleForm.getPlace() == null;
+
+            if (noSchedule || noDate || noPlace) continue;
+
             schedules.add(new Schedule(scheduleForm));
+        }
 
         return schedules;
     }
@@ -81,6 +91,10 @@ public class Schedule {
 
     public String getPlace() {
         return place;
+    }
+    
+    public String getCall() {
+        return call;
     }
 
     public String getMemo() {

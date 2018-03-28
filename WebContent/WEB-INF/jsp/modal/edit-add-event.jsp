@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link href="${context}/css/modal/edit-event.css" rel="stylesheet">
+<link href="${context}/css/modal/edit-add-event.css" rel="stylesheet">
 
 <c:choose>
   <c:when test="${empty event}">
@@ -46,9 +46,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="memo" class="col-sm-3 control-label">Memo:</label>
+        <label for="event-memo" class="col-sm-3 control-label">Memo:</label>
         <div class="col-sm-9">
-          <textarea rows="4" class="form-control" id="memo" name="memo">${event.memo}</textarea>
+          <textarea rows="4" class="form-control" id="event-memo" name="memo">${event.memo}</textarea>
         </div>
       </div>
       <div class="form-group">
@@ -77,7 +77,7 @@
       </div>
         
       <div class="col-xs-12 text-right">
-         <a type="button" class="btn btn-primary" id="add-schedule">Add Schedule</a>
+        <a type="button" class="btn btn-primary" id="add-schedule">Add Schedule</a>
       </div>
       
       <div class="col-xs-12">
@@ -86,11 +86,13 @@
           <table class="table table-hover table-striped" id="schedule-table">
             <thead>
               <tr>
+                <th></th>
                 <th>Date</th>
                 <th>Enter Time</th>
                 <th>Start Time</th>
                 <th>Prefecture</th>
                 <th>Place</th>
+                <th>Call</th>
                 <th>Memo</th>
                 <th>Link</th>
               </tr>
