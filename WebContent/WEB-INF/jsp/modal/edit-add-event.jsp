@@ -54,7 +54,7 @@
       <div class="form-group">
         <label for="event-url" class="col-sm-3 control-label">Event URL:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="event-url" name="eventUrl" value="${event.eventUrl}" required>
+          <input type="text" class="form-control" id="event-url" name="eventUrl" value="${event.eventUrl}">
         </div>
       </div>
       <div class="form-group">

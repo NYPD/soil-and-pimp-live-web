@@ -62,15 +62,14 @@ public class Event {
 
         this.updateEvent(eventForm);
 
-        if (this.name == null || this.eventUrl == null)
-            throw new IllegalArgumentException("name nor event url can be null");
+        if (this.name == null)
+            throw new IllegalArgumentException("name can't be null");
 
-        String tempCompositeKey = name + eventUrl;
         // This exception should never happen, MD5 should always be present
         try {
 
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.update(tempCompositeKey.getBytes());
+            messageDigest.update(this.name.getBytes());
             byte[] digest = messageDigest.digest();
 
             String eventKeyHash = DatatypeConverter.printHexBinary(digest);
