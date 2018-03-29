@@ -13,7 +13,8 @@
   </head>
   
   <body data-active-tab="maintenance">
-  
+    
+    <c:set var="isAdminPage" value="${true}"/>
     <%@ include file="fragment/navigation.jsp" %>
 
     <div class="container">

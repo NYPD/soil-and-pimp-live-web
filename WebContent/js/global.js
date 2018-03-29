@@ -23,18 +23,19 @@ ritsu.initialize({
 });
 
 //Listeners
-subscribeButton.addEventListener('click', function () {
+
+if(subscribeButton !== null) {
   
-  var $getSubscribeModalContentPromise = $.get('/subscribe');
-  
-  $getSubscribeModalContentPromise.done(function(modalContent) {
+  subscribeButton.addEventListener('click', function () {
     
-    $modalMedium.find('.modal-dialog').html(modalContent);
-    $modalMedium.modal('show');
+    var $getSubscribeModalContentPromise = $.get('/subscribe');
+    
+    $getSubscribeModalContentPromise.done(function(modalContent) {
+      
+      $modalMedium.find('.modal-dialog').html(modalContent);
+      $modalMedium.modal('show');
+      
+    });
     
   });
-  
-});
-
-
-
+}

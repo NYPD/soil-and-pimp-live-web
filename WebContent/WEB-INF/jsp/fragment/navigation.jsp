@@ -32,14 +32,24 @@
           </li>
         </c:if>
       </ul>
-
-      <form class="navbar-form navbar-right" role="search">
-        <a type="button" class="btn btn-default" id="subscribe">
-          <i class="fa fa-envelope" aria-hidden="true"></i>
-          <span>Subscribe</span>
-        </a>
-      </form>
-
+      
+      <c:choose>
+        <c:when test="${isAdminPage}">
+          <p class="navbar-text navbar-right navabar-user-info">
+            <span>Signed in as ${soilAndPimpSessionBean.user.nickname}</span>
+            <a class="logout-link" href="/admin/logout">Logout</a>
+            <img class="user-profile-picture" src="${soilAndPimpSessionBean.user.userProfilePicture}">
+          </p>
+        </c:when>
+        <c:otherwise>
+          <form class="navbar-form navbar-right" role="search">
+            <a type="button" class="btn btn-default" id="subscribe">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>Subscribe</span>
+            </a>
+          </form>
+        </c:otherwise>
+      </c:choose>
     </div>
   </div>
 </nav>
