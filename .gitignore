@@ -37,4 +37,4 @@ $RECYCLE.BIN/
 ## Sensitive Stuff Bruh ##
 ##########################
 client_secret.json
-cassandra.properties
+mysql.properties
