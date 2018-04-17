@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,13 +28,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "user_id")
+    private Integer userId;
     private String nickname;
     @Column(name = "user_role")
     private UserRole userRole;
 
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
     private Collection<UserApiIdentity> apiIdentities;
 
     @Transient
@@ -46,7 +45,7 @@ public class User {
 
     // Default Accessors *********************************
     public Integer getUserId() {
-        return id;
+        return userId;
     }
     public String getNickname() {
         return nickname;
@@ -60,14 +59,14 @@ public class User {
     public void setUserProfilePicture(String userProfilePicture) {
         this.userProfilePicture = userProfilePicture;
     }
-
     public Collection<UserApiIdentity> getApiIdentities() {
         return apiIdentities;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", nickname=" + nickname + ", userRole=" + userRole + ", apiIdentities=" + apiIdentities
+        return "User [id=" + userId + ", nickname=" + nickname + ", userRole=" + userRole + ", apiIdentities="
+               + apiIdentities
                 + ", userProfilePicture=" + userProfilePicture + "]";
     }
 

@@ -11,6 +11,10 @@ import live.soilandpimp.domain.enums.ApiType;
 
 public interface UsersRepository extends CrudRepository<User, UUID> {
 
-    @Query("SELECT * FROM USERS WHERE api_identities[:apiType] = :apiUserId")
+    @Query("SELECT u.userId, u.nickname, u.userRole"
+           + " FROM User u"
+           + " INNER JOIN UserApiIdentity i ON u.userId = i.userId"
+           + " WHERE i.apiUserId = :apiUserId"
+           + " AND i.apiType = :apiType")
     public User findByApitIndentity(@Param("apiType") ApiType apiType, @Param("apiUserId") String apiUserId);
 }
