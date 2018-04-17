@@ -95,6 +95,31 @@
       <artifactId>spring-jdbc</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>2.0.6.RELEASE</version>
+    </dependency>
+
+    <!-- MySQL -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.46</version>
+    </dependency>
+
+    <!-- JPA -->
+    <dependency>
+      <groupId>org.eclipse.persistence</groupId>
+      <artifactId>javax.persistence</artifactId>
+      <version>2.2.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>5.2.16.Final</version>
+    </dependency>
 
     <!-- Logback -->
     <dependency>
@@ -115,25 +140,13 @@
       <version>1.2.3</version>
     </dependency>
 
-    <!-- Cassandra -->
+    <!-- Apache -->
     <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-cassandra</artifactId>
-      <version>2.0.4.RELEASE</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.2.0</version>
     </dependency>
 
-    <dependency>
-      <groupId>com.datastax.cassandra</groupId>
-      <artifactId>cassandra-driver-extras</artifactId>
-      <version>3.4.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-handler</artifactId>
-      <version>4.1.22.Final</version>
-    </dependency>
-    
     <!-- Google Authentication -->
     <dependency>
       <groupId>com.google.api-client</groupId>

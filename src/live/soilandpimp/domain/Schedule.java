@@ -6,8 +6,12 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.UserDefinedType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import live.soilandpimp.model.ScheduleForm;
 
@@ -17,23 +21,30 @@ import live.soilandpimp.model.ScheduleForm;
  * @author NYPD
  *
  */
-@UserDefinedType("schedule")
+@Entity
+@Table(name = "schedules")
 public class Schedule {
 
     public static final Comparator<Schedule> DATE_ORDER = new ScheduleDateComparator();
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "schedule_id", unique = true)
+    private Long scheduleId;
+    @Column(name = "`date`")
     private LocalDate date;
-    @Column("enter_time")
+    @Column(name = "enter_time")
     private String enterTime;
-    @Column("start_time")
+    @Column(name = "start_time")
     private String startTime;
     private String prefecture;
     private String place;
+    @Column(name = "`call`")
     private String call;
     private String memo;
     private String link;
 
-    //Ms.Jackson Constructor
+    //JPA Constructor
     protected Schedule() {}
 
     public Schedule(ScheduleForm scheduleForm) {

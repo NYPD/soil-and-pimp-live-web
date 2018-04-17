@@ -1,17 +1,20 @@
 package live.soilandpimp.domain;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.cassandra.core.mapping.CassandraType;
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
 
-import com.datastax.driver.core.DataType.Name;
-
-import live.soilandpimp.domain.enums.ApiType;
 import live.soilandpimp.domain.enums.UserRole;
 
 
@@ -20,24 +23,29 @@ import live.soilandpimp.domain.enums.UserRole;
  * 
  * @author NYPD
  */
-@Table("users")
+@Entity
+@Table(name = "users")
 public class User {
 
-    @PrimaryKey
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String nickname;
-    @Column("user_role")
+    @Column(name = "user_role")
     private UserRole userRole;
 
-    @Column("api_identities")
-    @CassandraType(type = Name.MAP, typeArguments = {Name.TEXT, Name.TEXT})
-    private Map<ApiType, String> apiIdentities;
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Collection<UserApiIdentity> apiIdentities;
 
     @Transient
     private String userProfilePicture;
 
+    // JPA Constructor
+    protected User() {}
+
     // Default Accessors *********************************
-    public UUID getUserId() {
+    public Integer getUserId() {
         return id;
     }
     public String getNickname() {
@@ -52,12 +60,10 @@ public class User {
     public void setUserProfilePicture(String userProfilePicture) {
         this.userProfilePicture = userProfilePicture;
     }
-    public Map<ApiType, String> getApiIdentities() {
+
+    public Collection<UserApiIdentity> getApiIdentities() {
         return apiIdentities;
     }
-
-    // For Cassandra ***************************************
-    protected User() {}
 
     @Override
     public String toString() {

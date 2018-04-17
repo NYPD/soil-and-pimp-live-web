@@ -28,7 +28,7 @@ import live.soilandpimp.service.Service;
 import live.soilandpimp.util.AppConstants;
 
 @Configuration
-@Import({LogbackConfiguration.class, CassandraConfiguration.class, GoogleConfiguration.class})
+@Import({LogbackConfiguration.class, JpaConfiguration.class, GoogleConfiguration.class})
 @PropertySource("classpath:resources/project.properties")
 @ComponentScan(basePackageClasses = {Service.class})
 public class ApplicationConfiguration {

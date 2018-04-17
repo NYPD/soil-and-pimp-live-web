@@ -10,11 +10,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.DatatypeConverter;
-
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
 
 import live.soilandpimp.model.EventForm;
 
@@ -24,34 +28,38 @@ import live.soilandpimp.model.EventForm;
  * @author NYPD
  *
  */
-@Table(value = "events")
+@Entity
+@Table(name = "events")
 public class Event {
 
     public static final Comparator<Event> FIRST_SCHEDULE_DATE_ORDER = new EventFirstScheduleComparator();
     public static final Comparator<Event> FIRST_SCHEDULE_DATE_ORDER_DESC = new EventFirstScheduleComparatorDesc();
 
-    @PrimaryKey(value = "event_key")
+    @Id
+    @Column(name = "event_key")
     private String eventKey;
 
     private String name;
 
-    @Column("social_networking_title")
+    @Column(name = "social_networking_title")
     private String socialNetworkingTitle;
 
     private String memo;
 
-    @Column("event_url")
+    @Column(name = "event_url")
     private String eventUrl;
 
-    @Column("jvc_url")
+    @Column(name = "jvc_url")
     private String jvcUrl;
 
-    @Column("open_date")
+    @Column(name = "open_date")
     private LocalDateTime openDate;
 
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "event_key", nullable = false)
     private List<Schedule> schedules;
 
-    @Column("schedule_change")
+    @Column(name = "schedule_change")
     private boolean scheduleChange;
     private boolean broadcast;
 
@@ -62,19 +70,19 @@ public class Event {
 
         this.updateEvent(eventForm);
 
-        if (this.name == null)
+        if (name == null)
             throw new IllegalArgumentException("name can't be null");
 
         // This exception should never happen, MD5 should always be present
         try {
 
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.update(this.name.getBytes());
+            messageDigest.update(name.getBytes());
             byte[] digest = messageDigest.digest();
 
             String eventKeyHash = DatatypeConverter.printHexBinary(digest);
 
-            this.eventKey = eventKeyHash;
+            eventKey = eventKeyHash;
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError(e);
         }
@@ -84,15 +92,15 @@ public class Event {
     // Modified Accessors ********************************************
     public void updateEvent(EventForm eventForm) {
 
-        this.name = eventForm.getName();
-        this.eventUrl = eventForm.getEventUrl();
-        this.socialNetworkingTitle = eventForm.getSocialNetworkingTitle();
-        this.memo = eventForm.getMemo();
-        this.eventUrl = eventForm.getEventUrl();
-        this.jvcUrl = eventForm.getJvcUrl();
-        this.openDate = eventForm.getOpenDate();
+        name = eventForm.getName();
+        eventUrl = eventForm.getEventUrl();
+        socialNetworkingTitle = eventForm.getSocialNetworkingTitle();
+        memo = eventForm.getMemo();
+        eventUrl = eventForm.getEventUrl();
+        jvcUrl = eventForm.getJvcUrl();
+        openDate = eventForm.getOpenDate();
 
-        this.schedules = Schedule.createSchedules(eventForm.getSchedules());
+        schedules = Schedule.createSchedules(eventForm.getSchedules());
     }
 
     /**
