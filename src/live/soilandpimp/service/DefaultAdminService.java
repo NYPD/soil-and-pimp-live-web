@@ -2,7 +2,6 @@ package live.soilandpimp.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class DefaultAdminService implements AdminService {
     }
 
     @Override
-    public User getUser(UUID id) {
+    public User getUser(int id) {
         return usersRepository.findById(id).orElse(null);
     }
 

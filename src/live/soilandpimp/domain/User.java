@@ -5,6 +5,8 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +33,7 @@ public class User {
     @Column(name = "user_id")
     private Integer userId;
     private String nickname;
+    @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
     private UserRole userRole;
 
@@ -42,6 +45,12 @@ public class User {
 
     // JPA Constructor
     protected User() {}
+
+    public User(int userId, String nickname, UserRole userRole) {
+        this.userId = userId;
+        this.nickname = nickname;
+        this.userRole = userRole;
+    }
 
     // Default Accessors *********************************
     public Integer getUserId() {
@@ -67,7 +76,7 @@ public class User {
     public String toString() {
         return "User [id=" + userId + ", nickname=" + nickname + ", userRole=" + userRole + ", apiIdentities="
                + apiIdentities
-                + ", userProfilePicture=" + userProfilePicture + "]";
+               + ", userProfilePicture=" + userProfilePicture + "]";
     }
 
 }

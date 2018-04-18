@@ -2,6 +2,8 @@ package live.soilandpimp.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,7 @@ public class UserApiIdentity {
     private int userApiIdentityId;
     @Column(name = "user_id")
     private int userId;
+    @Enumerated(EnumType.STRING)
     @Column(name = "api_type")
     private ApiType apiType;
     @Column(name = "api_user_id")
