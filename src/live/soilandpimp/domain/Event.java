@@ -100,7 +100,7 @@ public class Event {
         jvcUrl = eventForm.getJvcUrl();
         openDate = eventForm.getOpenDate();
 
-        schedules.clear();
+        if (schedules != null) schedules.clear();
         schedules = Schedule.createSchedules(eventForm.getSchedules());
     }
 
