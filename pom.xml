@@ -184,7 +184,7 @@
   <build>
 
     <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>junit</testSourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
 
     <finalName>${project.artifactId}</finalName>
 
@@ -198,19 +198,15 @@
 
     <testResources>
       <testResource>
-        <directory>junit/configuration</directory>
+        <directory>test/configuration</directory>
       </testResource>
       <testResource>
         <targetPath>setup</targetPath>
-        <directory>junit/setup</directory>
+        <directory>test/setup</directory>
       </testResource>
       <testResource>
-        <targetPath>resource/mybatis/mapper</targetPath>
-        <directory>src/resource/mybatis/mapper</directory>
-      </testResource>
-      <testResource>
-        <targetPath>resource/api/google</targetPath>
-        <directory>src/resource/api/google</directory>
+        <targetPath>resources/api/google</targetPath>
+        <directory>src/resources/api/google</directory>
       </testResource>
     </testResources>
 
@@ -243,8 +239,17 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
-          <warFile>target/${project.artifactId}.war</warFile>
+          <warFile>target/${project.artifactId}-${project.version}.war</warFile>
           <path>/</path>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.21.0</version>
+        <configuration>
+          <argLine>-Dfile.encoding=UTF-8</argLine>
         </configuration>
       </plugin>
 
