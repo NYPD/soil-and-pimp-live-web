@@ -15,7 +15,10 @@
       <a class="navbar-brand" href="/"> 
         <img alt="Brand" src="https://i.imgur.com/O0efPKV.png" />
       </a>
-      <p class="navbar-text">SOIL &amp; "PIMP" LIVE</p>
+      <p class="navbar-text">
+        <span>SOIL &amp; "PIMP" LIVE</span>
+        <small>v${projectVersion}</small>
+      </p>
     </div>
 
     <div class="collapse navbar-collapse" id="main-navbar">
