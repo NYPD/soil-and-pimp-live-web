@@ -28,7 +28,7 @@ public class EventTests {
     @BeforeClass
     public static void setUp() throws Exception {
 
-        Constructor<Event> constructor = (Constructor<Event>) Event.class.getDeclaredConstructors()[1];
+        Constructor<Event> constructor = (Constructor<Event>) Event.class.getDeclaredConstructors()[0];
         constructor.setAccessible(true);
 
         event = constructor.newInstance();

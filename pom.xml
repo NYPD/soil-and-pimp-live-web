@@ -218,9 +218,7 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <compilerArgs>
-            <compilerArg>-encoding UTF-8</compilerArg>
-          </compilerArgs>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
 
