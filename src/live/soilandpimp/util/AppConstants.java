@@ -14,7 +14,4 @@ public class AppConstants {
 
     public static final int FIVE_YEARS_IN_SECONDS = 157680000;
 
-    public static final String MYSQL_DEVELOPMENT_URL = "jdbc:mysql://casa.munoz.coffee:3306/soil_and_pimp_live?useUnicode=true&characterEncoding=utf8";
-    public static final String MYSQL_PRODUCTION_URL = "jdbc:mysql://127.0.0.1:3306/soil_and_pimp_live?useUnicode=true&characterEncoding=utf8";
-
 }
