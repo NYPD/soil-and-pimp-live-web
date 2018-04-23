@@ -12,7 +12,7 @@ DROP SCHEMA IF EXISTS `soil_and_pimp_live` ;
 -- -----------------------------------------------------
 -- Schema soil_and_pimp_live
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `soil_and_pimp_live` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `soil_and_pimp_live` DEFAULT CHARACTER SET utf8mb4 ;
 USE `soil_and_pimp_live` ;
 
 -- -----------------------------------------------------
@@ -79,11 +79,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `soil_and_pimp_live`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `soil_and_pimp_live`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL AUTO_INCREMENT,
   `nickname` VARCHAR(100) NULL,
   `user_role` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `id_UNIQUE` (`user_id` ASC))
 ENGINE = InnoDB;
 
 
@@ -96,13 +96,13 @@ CREATE TABLE IF NOT EXISTS `soil_and_pimp_live`.`user_api_identity` (
   `user_api_identity_id` INT NOT NULL AUTO_INCREMENT,
   `api_type` VARCHAR(45) NOT NULL,
   `api_user_id` VARCHAR(45) NOT NULL,
-  `users_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`user_api_identity_id`),
   UNIQUE INDEX `user_api_identity_id_UNIQUE` (`user_api_identity_id` ASC),
-  INDEX `fk_user_api_identity_users1_idx` (`users_id` ASC),
+  INDEX `fk_user_api_identity_users1_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_api_identity_users1`
-    FOREIGN KEY (`users_id`)
-    REFERENCES `soil_and_pimp_live`.`users` (`id`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `soil_and_pimp_live`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
