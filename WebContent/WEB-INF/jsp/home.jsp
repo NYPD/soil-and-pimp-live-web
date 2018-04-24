@@ -28,13 +28,13 @@
       
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item active" style="background-image: url(https://i.imgur.com/wXQhShM.jpg)">
+        <div class="item active" style="background-image: url(${context}/images/bg1.jpg)">
           <div class="carousel-caption"></div>
         </div>
-        <div class="item" style="background-image: url(https://i.imgur.com/MJufWLF.jpg)">
+        <div class="item" style="background-image: url(${context}/images/bg2.jpg)">
           <div class="carousel-caption"></div>
         </div>
-        <div class="item" style="background-image: url(https://i.imgur.com/jF029Up.jpg)">
+        <div class="item" style="background-image: url(${context}/images/bg3.jpg)">
           <div class="carousel-caption"></div>
         </div>
       </div>
