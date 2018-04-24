@@ -13,7 +13,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/"> 
-        <img alt="Brand" src="https://i.imgur.com/O0efPKV.png" />
+        <img alt="Brand" src="${context}/images/logo.png" />
       </a>
       <p class="navbar-text">
         <span>SOIL &amp; "PIMP" LIVE</span>
