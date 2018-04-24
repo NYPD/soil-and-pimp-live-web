@@ -115,9 +115,10 @@
       <version>2.2.0</version>
     </dependency>
 
+    <!-- Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
+      <artifactId>hibernate-core</artifactId>
       <version>5.2.16.Final</version>
     </dependency>
 
