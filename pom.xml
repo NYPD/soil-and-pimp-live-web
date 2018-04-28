@@ -7,7 +7,7 @@
   <name>Soil and Pimp Live Web</name>
   <version>0.1.0</version>
   <packaging>war</packaging>
-  <inceptionYear>2016</inceptionYear>
+  <inceptionYear>2018</inceptionYear>
 
   <issueManagement>
     <system>GitHub Issues</system>
@@ -34,19 +34,18 @@
     </developer>
 
     <developer>
-      <id>mares eat dotes</id>
-      <name>mares eat dotes</name>
+      <id>kyle_rutter</id>
+      <name>Kyle Rutter</name>
       <email>kylewrutter@gmail.com</email>
       <roles>
         <role>system admin</role>
         <role>back-end developer</role>
-        <role>front-end developer</role>
       </roles>
     </developer>
   </developers>
 
   <properties>
-    <spring.version>5.0.3.RELEASE</spring.version>
+    <spring.version>5.0.4.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -96,38 +95,119 @@
       <artifactId>spring-jdbc</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>2.0.6.RELEASE</version>
+    </dependency>
+
+    <!-- MySQL -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.46</version>
+    </dependency>
+
+    <!-- JPA -->
+    <dependency>
+      <groupId>org.eclipse.persistence</groupId>
+      <artifactId>javax.persistence</artifactId>
+      <version>2.2.0</version>
+    </dependency>
+
+    <!-- Hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.2.16.Final</version>
+    </dependency>
+
+    <!-- Logback -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+
+    <!-- Apache -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.2.0</version>
+    </dependency>
+
+    <!-- Google Authentication -->
+    <dependency>
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client</artifactId>
+      <version>1.23.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-oauth2</artifactId>
+      <version>v2-rev134-1.23.0</version>
+    </dependency>
+
+    <!-- JUnit Tests -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.13.0</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
 
   <build>
+
     <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>junit</testSourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
 
     <finalName>${project.artifactId}</finalName>
 
     <resources>
       <resource>
-        <targetPath>resource</targetPath>
-        <directory>src/resource</directory>
+        <targetPath>resources</targetPath>
+        <directory>src/resources</directory>
         <filtering>true</filtering>
       </resource>
     </resources>
 
     <testResources>
       <testResource>
-        <directory>junit/configuration</directory>
+        <directory>test/configuration</directory>
       </testResource>
       <testResource>
         <targetPath>setup</targetPath>
-        <directory>junit/setup</directory>
+        <directory>test/setup</directory>
       </testResource>
       <testResource>
-        <targetPath>resource/mybatis/mapper</targetPath>
-        <directory>src/resource/mybatis/mapper</directory>
-      </testResource>
-      <testResource>
-        <targetPath>resource/api/google</targetPath>
-        <directory>src/resource/api/google</directory>
+        <targetPath>resources/api/google</targetPath>
+        <directory>src/resources/api/google</directory>
       </testResource>
     </testResources>
 
@@ -139,9 +219,7 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <compilerArgs>
-            <compilerArg>-parameters</compilerArg>
-          </compilerArgs>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
 
@@ -162,6 +240,16 @@
         <configuration>
           <warFile>target/${project.artifactId}.war</warFile>
           <path>/</path>
+          <charset>UTF-8</charset>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.21.0</version>
+        <configuration>
+          <argLine>-Dfile.encoding=UTF-8</argLine>
         </configuration>
       </plugin>
 

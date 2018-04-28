@@ -1,0 +1,13 @@
+.event-table-functions {
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+#event-table .edit-column {
+  width: 60px;
+}
+
+#event-table .fa{
+  cursor: pointer;
+}
+

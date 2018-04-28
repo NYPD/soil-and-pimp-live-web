@@ -1,0 +1,132 @@
+/** Document ********************************************/
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 50px;
+}
+
+/** Navbar **********************************************/
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  min-height: 60px;
+}
+
+.navbar .navbar-brand {
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.navbar .navbar-text {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.navbar .navbar-form {
+  margin-top: 5px;
+  padding: 5px;
+  text-align: center;
+}
+
+.navbar img {
+  height: 100%;
+}
+
+.navbar-nav >li >a {
+  line-height: 30px;  
+}
+
+.navbar .navabar-user-info {
+  position: relative;
+  padding-right: 75px;
+  font-size: 18px;
+}
+
+.navbar .navabar-user-info .user-profile-picture {
+  position: absolute;
+  right: 15px;
+  top: -10px;
+  width: 50px;
+  height: 50px;
+}
+
+.navbar .navabar-user-info > span {
+  display: block;
+  margin-top: -10px;
+  text-align: right;
+}
+
+.navbar .navabar-user-info .logout-link {
+  position: absolute;
+  right: 0;
+  padding-right: 75px;
+  text-decoration: none;
+}
+
+@media(max-width: 991px) {
+  
+  .navbar .navabar-user-info {
+    padding-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .navbar .navabar-user-info > span,
+  .navbar .navabar-user-info .user-profile-picture {
+    display: none;
+  }
+  
+  .navbar .navabar-user-info .logout-link {
+    position: static;
+    right: 0;
+    padding-right: 0;
+  }
+}
+
+/** Footer *********************************************/
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #f5f5f5;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    height: 70px;
+  }
+  body {
+    margin-bottom: 70px;
+  }
+  .footer ul {
+    margin-bottom: 0;
+  }
+  .footer ul li:last-of-type {
+    margin-top: 5px;
+  }
+}
+
+.footer ul {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.footer ul li a {
+  text-decoration: none;
+}
+
+.footer ul li a > * {
+  vertical-align: middle;
+}
+
+
+/** Misc *********************************************/
+.cursor-pointer {
+ cursor: pointer; 
+}

@@ -1,0 +1,18 @@
+#success-unsubscribe {
+  margin-top: 10px;
+  transition: opacity 3000ms;
+  opacity: 0;
+}
+
+#success-unsubscribe.show {
+  opacity: 1;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group .help-block.ritsu-error {
+  position: absolute;
+  right: 0;
+}
