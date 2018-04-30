@@ -51,6 +51,15 @@
 
     <div class="container">
     
+      <c:if test="${!homeEvents.hasActiveEvents() and !homeEvents.hasUpcomingEvents()}">
+        <div class="row">
+          <div class="col-xs-12 text-center">
+           <h1>No upcoming Death Jazz</h1>
+           <img src="${context}/images/no-death-jazz.jpg" />
+          </div>
+        </div>
+      </c:if>
+    
       <c:if test="${homeEvents.hasActiveEvents()}">
         <div class="row">
           <div class="col-xs-12">
