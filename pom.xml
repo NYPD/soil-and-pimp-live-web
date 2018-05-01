@@ -5,7 +5,7 @@
   <groupId>live.soilandpimp</groupId>
   <artifactId>soil-and-pimp-live-web</artifactId>
   <name>Soil and Pimp Live Web</name>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <packaging>war</packaging>
   <inceptionYear>2018</inceptionYear>
 
