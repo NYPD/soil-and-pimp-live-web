@@ -11,28 +11,30 @@
   font-size: 30px;
 }
 
-.carousel .carousel-inner .item {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-}
-
 @media (min-width: 768px) {
-  .carousel .carousel-inner .item {
+  .carousel .carousel-inner .item-outer {
     height: 300px;
   }
 }
 
 @media (min-width: 992px) {
-  .carousel .carousel-inner .item {
+  .carousel .carousel-inner .item-outer {
     height: 350px;
   }
 }
 
 @media (min-width: 1200px) {
-  .carousel .carousel-inner .item {
+  .carousel .carousel-inner .item-outer {
     height: 400px;
   }
+}
+
+.carousel .carousel-inner .item-inner {
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 /** active event alert **/
