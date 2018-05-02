@@ -7,6 +7,15 @@
   </div>
   <div class="modal-body">
     
+    <div class="row">
+      <div class="col-xs-12">
+        <p>
+          Receive newly posted SOIL &amp; "PIMP" SESSIONS events! Make sure to check the spam folder for our emails in case they incorrectly get 
+          flagged for spam or simply add <em>events@soilandpimp.live</em> to your whitelist.
+        </p>
+      </div>
+    </div>
+    
     <form class="form-horizontal">
       <div class="form-group">
         <label for="email-address" class="col-sm-3 control-label">Email Address:</label>
@@ -15,14 +24,13 @@
         </div>
       </div>
     </form>
+    
     <div class="row">
       <div class="col-xs-12">
-        <p>
-          Receive newly posted SOIL &amp; "PIMP" SESSIONS events! For information on how your email address is used please 
-          see our <a href="/privacy-policy">privacy policy.</a>
-        </p>
+        <small>For information on how your email address is used please see our <a href="/privacy-policy">privacy policy.</a></small>
       </div>
     </div>
+    
   </div>
   <div class="modal-footer">
   

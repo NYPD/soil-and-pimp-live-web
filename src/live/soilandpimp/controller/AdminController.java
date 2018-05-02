@@ -53,7 +53,7 @@ public class AdminController {
         soilAndPimpSessionBean.setUser(null);
         session.invalidate();
 
-        return new ModelAndView("redirect:/admin");
+        return new ModelAndView("redirect:/");
 
     }
 

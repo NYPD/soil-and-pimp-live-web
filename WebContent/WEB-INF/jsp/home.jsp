@@ -24,17 +24,30 @@
         <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
         <li data-target="#main-carousel" data-slide-to="1"></li>
         <li data-target="#main-carousel" data-slide-to="2"></li>
+        <li data-target="#main-carousel" data-slide-to="3"></li>
+        <li data-target="#main-carousel" data-slide-to="4"></li>
       </ol>
       
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item active" style="background-image: url(${context}/images/bg1.jpg)">
+        <div class="item item-outer active" style="background-image: url(${context}/images/banner-1-bg.jpg)">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-1.png)"></div>
           <div class="carousel-caption"></div>
         </div>
-        <div class="item" style="background-image: url(${context}/images/bg2.jpg)">
+        <div class="item item-outer" style="background-image: url(${context}/images/banner-2-bg.jpg)">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-2.png)"></div>
           <div class="carousel-caption"></div>
         </div>
-        <div class="item" style="background-image: url(${context}/images/bg3.jpg)">
+        <div class="item item-outer" style="background-image: url(${context}/images/banner-3-bg.jpg)">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-3.png)"></div>
+          <div class="carousel-caption"></div>
+        </div>
+        <div class="item item-outer" style="background-color: #fbfbf9">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-6.jpg)"></div>
+          <div class="carousel-caption"></div>
+        </div>
+        <div class="item item-outer" style="background-image: url(${context}/images/banner-7-bg.jpg)">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-7.png)"></div>
           <div class="carousel-caption"></div>
         </div>
       </div>
@@ -50,6 +63,15 @@
     </div>
 
     <div class="container">
+    
+      <c:if test="${!homeEvents.hasActiveEvents() and !homeEvents.hasUpcomingEvents()}">
+        <div class="row">
+          <div class="col-xs-12 text-center">
+           <h1>No upcoming Death Jazz</h1>
+           <img src="${context}/images/no-death-jazz.jpg" />
+          </div>
+        </div>
+      </c:if>
     
       <c:if test="${homeEvents.hasActiveEvents()}">
         <div class="row">
