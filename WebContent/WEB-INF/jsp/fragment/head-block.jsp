@@ -5,6 +5,6 @@
 <link rel="icon" type="image/png" sizes="32x32" href="${context}/images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="${context}/images/favicon-16x16.png"> 
 
-<link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
-<link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
+<link href="${context}/css/vendor/bootstrap.min.css?v=${projectVersion}" rel="stylesheet">
+<link href="${context}/css/vendor/font-awesome.min.css?v=${projectVersion}" rel="stylesheet">
 <link href="${context}/css/global.css?v=${projectVersion}" rel="stylesheet">

@@ -9,7 +9,7 @@
     
     <title>SOIL &amp; "PIMP" LIVE - Past Events</title>
 
-    <link href="${context}/css/event-container.css" rel="stylesheet">
+    <link href="${context}/css/event-container.css?v=${projectVersion}" rel="stylesheet">
   </head>
   
   <body data-active-tab="past-events">
