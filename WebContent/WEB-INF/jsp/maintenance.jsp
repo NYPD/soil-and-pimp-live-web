@@ -9,7 +9,7 @@
     
     <title>SOIL &amp; "PIMP" LIVE - Admin</title>
 
-    <link href="${context}/css/maintenance.css" rel="stylesheet">
+    <link href="${context}/css/maintenance.css?v=${projectVersion}" rel="stylesheet">
   </head>
   
   <body data-active-tab="maintenance">

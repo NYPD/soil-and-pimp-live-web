@@ -6,7 +6,7 @@
   <head>
     <%@ include file="fragment/head-block.jsp" %>
     
-    <link href="${context}/css/unsubscribe.css" rel="stylesheet">
+    <link href="${context}/css/unsubscribe.css?v=${projectVersion}" rel="stylesheet">
     
     <title>SOIL &amp; "PIMP" LIVE - Unsubscribe</title>
   </head>
@@ -57,7 +57,7 @@
     
     <!-- Scripts -->
     <%@ include file="fragment/global-javascript.jsp" %>
-    <script src="${context}/js/unsubscribe.js"></script>
+    <script src="${context}/js/unsubscribe.js?v=${projectVersion}"></script>
   </body>
 
 </html>

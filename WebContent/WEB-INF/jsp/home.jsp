@@ -9,8 +9,8 @@
     
     <title>SOIL &amp; "PIMP" LIVE</title>
     
-    <link href="${context}/css/home.css" rel="stylesheet">
-    <link href="${context}/css/event-container.css" rel="stylesheet">
+    <link href="${context}/css/home.css?v=${projectVersion}" rel="stylesheet">
+    <link href="${context}/css/event-container.css?v=${projectVersion}" rel="stylesheet">
   </head>
   
   <body data-active-tab="home">
@@ -30,24 +30,24 @@
       
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item item-outer active" style="background-image: url(${context}/images/banner-1-bg.jpg)">
-          <div class="item-inner" style="background-image: url(${context}/images/banner-1.png)"></div>
+        <div class="item item-outer active" style="background-image: url(${context}/images/banner-1-bg.jpg?v=${projectVersion})">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-1.png?v=${projectVersion})"></div>
           <div class="carousel-caption"></div>
         </div>
-        <div class="item item-outer" style="background-image: url(${context}/images/banner-2-bg.jpg)">
-          <div class="item-inner" style="background-image: url(${context}/images/banner-2.png)"></div>
+        <div class="item item-outer" style="background-image: url(${context}/images/banner-2-bg.jpg?v=${projectVersion})">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-2.png?v=${projectVersion})"></div>
           <div class="carousel-caption"></div>
         </div>
-        <div class="item item-outer" style="background-image: url(${context}/images/banner-3-bg.jpg)">
-          <div class="item-inner" style="background-image: url(${context}/images/banner-3.png)"></div>
+        <div class="item item-outer" style="background-image: url(${context}/images/banner-3-bg.jpg?v=${projectVersion})">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-3.png?v=${projectVersion})"></div>
           <div class="carousel-caption"></div>
         </div>
         <div class="item item-outer" style="background-color: #fbfbf9">
-          <div class="item-inner" style="background-image: url(${context}/images/banner-6.jpg)"></div>
+          <div class="item-inner" style="background-image: url(${context}/images/banner-6.jpg?v=${projectVersion})"></div>
           <div class="carousel-caption"></div>
         </div>
-        <div class="item item-outer" style="background-image: url(${context}/images/banner-7-bg.jpg)">
-          <div class="item-inner" style="background-image: url(${context}/images/banner-7.png)"></div>
+        <div class="item item-outer" style="background-image: url(${context}/images/banner-7-bg.jpg?v=${projectVersion})">
+          <div class="item-inner" style="background-image: url(${context}/images/banner-7.png?v=${projectVersion})"></div>
           <div class="carousel-caption"></div>
         </div>
       </div>
