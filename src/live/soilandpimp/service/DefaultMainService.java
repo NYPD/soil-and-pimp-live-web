@@ -113,7 +113,8 @@ public class DefaultMainService implements MainService {
 
     @Override
     public void emailUnsubscribe(String emailAddress) {
-        emailRepository.deleteById(emailAddress);
+        boolean existsById = emailRepository.existsById(emailAddress);
+        if (existsById) emailRepository.deleteById(emailAddress);
     }
 
 }
