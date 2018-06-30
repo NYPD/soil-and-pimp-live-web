@@ -28,9 +28,9 @@ import live.soilandpimp.service.Service;
 import live.soilandpimp.util.AppConstants;
 
 @Configuration
-@Import({LogbackConfiguration.class, JpaConfiguration.class, GoogleConfiguration.class})
-@PropertySource("classpath:resources/project.properties")
 @ComponentScan(basePackageClasses = {Service.class})
+@PropertySource("classpath:resources/project.properties")
+@Import({LogbackConfiguration.class, JpaConfiguration.class, GoogleConfiguration.class, MailerConfiguration.class})
 public class ApplicationConfiguration {
 
     @Autowired(required = false)
@@ -59,8 +59,9 @@ public class ApplicationConfiguration {
 
         String[] activeProfiles = springEnvironment.getActiveProfiles();
 
-        boolean isDevelopment = Arrays.stream(activeProfiles).filter(x -> AppConstants.DEVELOPMENT_PROFILE.equals(x))
-                .findAny().orElse(null) != null;
+        boolean isDevelopment = Arrays.stream(activeProfiles)
+                                      .filter(x -> AppConstants.DEVELOPMENT_PROFILE.equals(x))
+                                      .findAny().orElse(null) != null;
 
         Level loggingLevel = isDevelopment? Level.DEBUG : Level.INFO;
 

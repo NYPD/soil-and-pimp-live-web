@@ -69,6 +69,9 @@ DROP TABLE IF EXISTS `soil_and_pimp_live`.`email_subscriptions` ;
 
 CREATE TABLE IF NOT EXISTS `soil_and_pimp_live`.`email_subscriptions` (
   `email_address` VARCHAR(100) CHARACTER SET 'utf8mb4' NOT NULL,
+  `verification_token` VARCHAR(45) NULL,
+  `verified` TINYINT(1) NOT NULL,
+  `created_date` DATE NOT NULL,
   PRIMARY KEY (`email_address`))
 ENGINE = InnoDB;
 

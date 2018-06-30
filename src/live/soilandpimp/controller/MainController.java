@@ -66,4 +66,15 @@ public class MainController {
         return modelAndView;
     }
 
+    @RequestMapping("/verify-email")
+    public ModelAndView verifyEmail(@RequestParam("email") String emailAddress, @RequestParam("token") String userVerificationToken) {
+
+        boolean emailVerified = mainService.verifyEmailSubscription(emailAddress, userVerificationToken);
+
+        ModelAndView homePage = this.getHomePage();
+        homePage.addObject("emailVerified", emailVerified);
+
+        return homePage;
+    }
+
 }

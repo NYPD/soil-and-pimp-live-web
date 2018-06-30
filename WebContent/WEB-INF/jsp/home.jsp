@@ -13,7 +13,7 @@
     <link href="${context}/css/event-container.css?v=${projectVersion}" rel="stylesheet">
   </head>
   
-  <body data-active-tab="home">
+  <body data-active-tab="home" data-successful-subscription="${emailVerified}">
   
     <%@ include file="fragment/navigation.jsp" %>
 
@@ -72,7 +72,15 @@
           </div>
         </div>
       </c:if>
-    
+      
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="alert alert-success alert-subscribed-success hidden" role="alert">
+            <strong>Successfully subscribed!!!</strong>
+          </div>
+        </div>
+      </div>
+        
       <c:if test="${homeEvents.hasActiveEvents()}">
         <div class="row">
           <div class="col-xs-12">
