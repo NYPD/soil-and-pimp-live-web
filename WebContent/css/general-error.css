@@ -1,0 +1,17 @@
+.error-text-big {
+  margin-top: 80px;
+  font-size: 54px;
+}
+.error-text-small {
+  font-size: 32px;  
+}
+
+.image-container {
+  position: relative;
+  text-align: center;
+}
+
+.image-container #soil-mound {
+  max-width: 600px;
+  width: 100%;
+}
