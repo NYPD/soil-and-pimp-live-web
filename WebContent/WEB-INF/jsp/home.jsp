@@ -82,33 +82,103 @@
       </div>
         
       <c:if test="${homeEvents.hasActiveEvents()}">
+      
         <div class="row">
           <div class="col-xs-12">
-            <div class="alert alert-info alert-active-event" role="alert">
-              <div>
-                <strong>Now Playing:</strong>
-              </div>
-              <div class="active-event-container">
-                <c:forEach items="${homeEvents.activeEvents}" var="activeEvent">
-                  <c:choose>
-                     <c:when test="${not empty activeEvent.eventUrl}">
-                       <a class="alert-link" href="${activeEvent.eventUrl}" target="_blank">
-                         <span>${activeEvent.name}</span>
-                          <c:if test="${not empty activeEvent.activeSchedule}">
-                           <span>&#64; ${activeEvent.activeSchedule.place}</span>
-                          </c:if>
-                       </a>
-                     </c:when>
-                     <c:otherwise>${activeEvent.name}</c:otherwise>
-                   </c:choose>
-                   <br>
-                </c:forEach>
+            <h1>Active Events &#40;${homeEvents.activeEvents.size()}&#41;</h1>
+          </div>
+        </div>
+        
+        <c:forEach items="${homeEvents.activeEvents}" var="activeEvent">
+          <div class="row event-container content-loading">
+          
+            <div class="col-xs-12">
+              
+              <div class="event">
+                <div class="row">
+                  <div class="col-sm-6 col-md-5 col-lg-4">
+                  
+                    <div class="event-info">
+                  
+                      <label class="event-name">
+                        <c:choose>
+                           <c:when test="${not empty activeEvent.eventUrl}">
+                             <a href="${activeEvent.eventUrl}" target="_blank">${activeEvent.name}</a>
+                           </c:when>
+                           <c:otherwise>${activeEvent.name}</c:otherwise>
+                         </c:choose>
+                      </label>
+                      
+                      <p>${activeEvent.memo}</p>
+                    
+                    </div>
+                   
+                  </div>
+                  
+                  <div class="col-sm-6 col-md-7 col-lg-8">
+                    <div class="row">
+                      <c:forEach items="${activeEvent.schedules}" var="schedule">
+                        <div class="col-xs-6 col-md-4 col-lg-3 schedule">
+                          <div class="thumbnail">
+                            <div class="caption">
+                              <h3 class="date-title" data-date-year="${schedule.date.getYear()}" 
+                                                     data-date-month="${schedule.date.getMonthValue() - 1}" 
+                                                     data-date-day="${schedule.date.getDayOfMonth()}"></h3>
+                              
+                              <dl>
+                                <c:if test="${not empty schedule.place}">
+                                  <dt>
+                                    <span>Venue</span>
+                                    <c:if test="${not empty schedule.memo}">
+                                      <i class="fa fa-info-circle fa-lg" aria-hidden="true" data-toggle="tooltip" 
+                                                                                      data-placement="bottom" 
+                                                                                      data-container="body" 
+                                                                                      data-html="true" 
+                                                                                      title="${schedule.memo}"></i>
+                                    </c:if>
+                                    
+                                    <c:if test="${not empty schedule.link}">
+                                      <a href="${schedule.link}" target="_blank">
+                                        <i class="fa fa-link fa-lg" aria-hidden="true"></i>
+                                      </a>
+                                    </c:if>
+                                    
+                                    <c:if test="${not empty schedule.call}">
+                                      <i class="fa fa-phone fa-lg" aria-hidden="true" data-toggle="tooltip" 
+                                                                                      data-placement="bottom" 
+                                                                                      data-container="body" 
+                                                                                      data-html="true"
+                                                                                      title="${schedule.call}"></i>
+                                    </c:if>
+                                  </dt>
+                                  <dd>
+                                    <span>${schedule.place}</span>
+                                    <c:if test="${not empty schedule.prefecture}">
+                                      <span>(${schedule.prefecture})</span>
+                                    </c:if>
+                                  </dd>
+                                </c:if>
+                                <c:if test="${not empty schedule.enterTime}">
+                                  <dt>Enter Time</dt>
+                                  <dd>${schedule.enterTime}</dd>
+                                </c:if>
+                                <c:if test="${not empty schedule.startTime}">
+                                  <dt>Start Time</dt>
+                                  <dd>${schedule.startTime}</dd>
+                                </c:if>
+                              </dl>
+                            </div>
+                          </div>
+                        </div>
+                      </c:forEach>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </c:forEach>
       </c:if>
-      
       
       <c:if test="${homeEvents.hasUpcomingEvents()}">
       
@@ -117,7 +187,6 @@
             <h1>Upcoming Events &#40;${homeEvents.upcomingEvents.size()}&#41;</h1>
           </div>
         </div>
-        
         
         <c:forEach items="${homeEvents.upcomingEvents}" var="upcomingEvent">
           <div class="row event-container content-loading">
