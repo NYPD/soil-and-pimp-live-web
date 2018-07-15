@@ -1,6 +1,7 @@
 package service;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -9,12 +10,15 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 
 import live.soilandpimp.domain.Event;
 import live.soilandpimp.domain.Schedule;
+import live.soilandpimp.model.EventForm;
 import live.soilandpimp.model.HomeEvents;
+import live.soilandpimp.repository.EmailRepository;
 import live.soilandpimp.repository.EventsRepository;
 import live.soilandpimp.service.DefaultMainService;
 
@@ -80,6 +84,64 @@ public class MainServiceTests {
         assertThat(pastEvents.size(), is(1));
 
         assertThat(pastEvents.get(0), is(pastEvent));
+
+    }
+
+    @Test
+    public void shouldSaveNewEvent() throws Exception {
+
+        EventForm eventForm = new EventForm();
+        eventForm.setName("Cool Name");
+
+        EventsRepository eventsRepository = mock(EventsRepository.class);
+
+        Field field = homeService.getClass().getDeclaredField("eventsRepository");
+        field.setAccessible(true);
+        field.set(homeService, eventsRepository);
+
+        Event savedEvent = homeService.saveEvent(eventForm);
+
+        assertThat(savedEvent, notNullValue());
+
+    }
+
+    @Test
+    public void shouldSaveExistingEvent() throws Exception {
+
+        Event existingEvent = mock(Event.class);
+
+        EventForm eventForm = new EventForm();
+        eventForm.setEventKey("key");
+        eventForm.setName("Cool Name");
+
+        EventsRepository eventsRepository = mock(EventsRepository.class);
+        when(eventsRepository.findById("key")).thenReturn(Optional.of(existingEvent));
+
+        Field field = homeService.getClass().getDeclaredField("eventsRepository");
+        field.setAccessible(true);
+        field.set(homeService, eventsRepository);
+
+        Event savedEvent = homeService.saveEvent(eventForm);
+
+        assertThat(savedEvent, is(existingEvent));
+
+    }
+
+    @Test
+    public void shouldVerifyEmailSubscription() throws Exception {
+
+        String emailAddress = "a@a.a";
+
+        EmailRepository emailRepository = mock(EmailRepository.class);
+        when(emailRepository.findById(emailAddress)).thenReturn(Optional.empty());
+
+        Field field = homeService.getClass().getDeclaredField("emailRepository");
+        field.setAccessible(true);
+        field.set(homeService, emailRepository);
+
+        boolean verifyEmailSubscription = homeService.verifyEmailSubscription(emailAddress, null);
+
+        assertThat(verifyEmailSubscription, is(false));
 
     }
 }

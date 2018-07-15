@@ -141,10 +141,12 @@ public class DefaultMainService implements MainService {
     @Override
     public boolean verifyEmailSubscription(String emailAddress, String userVerificationToken) {
 
-        EmailSubscription emailSubscription = emailRepository.findById(emailAddress).get();
+        Optional<EmailSubscription> optionalEmailSubscription = emailRepository.findById(emailAddress);
 
         //There is not even this email address in the DB
-        if (emailSubscription == null) return false;
+        if (optionalEmailSubscription.isPresent() == false) return false;
+
+        EmailSubscription emailSubscription = optionalEmailSubscription.get();
 
         boolean emailVerified = emailSubscription.verifyEmailAddress(userVerificationToken);
         if (emailVerified) emailRepository.save(emailSubscription);
@@ -154,8 +156,8 @@ public class DefaultMainService implements MainService {
 
     @Override
     public void emailUnsubscribe(String emailAddress) {
-        boolean existsById = emailRepository.existsById(emailAddress);
-        if (existsById) emailRepository.deleteById(emailAddress);
+        boolean exists = emailRepository.existsById(emailAddress);
+        if (exists) emailRepository.deleteById(emailAddress);
     }
 
     private String verifyEmailMarkup(EmailSubscription emailSubscription) {
