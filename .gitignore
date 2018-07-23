@@ -38,3 +38,4 @@ $RECYCLE.BIN/
 ##########################
 client_secret.json
 mysql.properties
+mailer.properties

@@ -26,3 +26,17 @@ window.document.querySelectorAll('.event-container').forEach(function(row) {
 });
 
 $('i[data-toggle="tooltip"]').tooltip();
+
+var successfulSubscription = document.querySelector('body').getAttribute('data-successful-subscription') === 'true';
+
+if(successfulSubscription) {
+  
+  let subscribedSuccessAlert = document.querySelector('.alert-subscribed-success');
+  
+  subscribedSuccessAlert.classList.remove('hidden');
+  
+  window.setTimeout(function() {
+    subscribedSuccessAlert.classList.add('hidden');
+  }, 5000);
+
+}

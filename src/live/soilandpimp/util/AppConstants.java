@@ -8,6 +8,9 @@ public class AppConstants {
     public static final String TEST_PROFILE = "TEST";
     public static final String PRODUCTION_PROFILE = "PRODUCTION";
 
+    public static final String DEV_URL = "http://localhost:8080";
+    public static final String PROD_URL = "https://soilandpimp.live";
+
     public static final String REMEBER_ME_PARAMETER_NAME = "remember_me";
     public static final String API_TYPE_COOKIE_NAME = "apiType";
 

@@ -34,7 +34,7 @@
   </div>
   <div class="modal-footer">
   
-    <p class="text-success success-subscribe-message">Successfully subscribed!</p>
+    <p class="text-success success-subscribe-message">Subscribed! Please verify your email address</p>
   
     <a type="button" class="btn btn-default" id="subscribe-close" data-dismiss="modal">I'll pass</a>
     <a type="button" class="btn btn-primary" id="submit-email">Subscribe</a>

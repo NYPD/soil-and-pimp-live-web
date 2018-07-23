@@ -50,3 +50,7 @@
 .alert-active-event > .active-event-container{
   padding-left: 10px;
 }
+
+.alert-subscribed-success {
+  margin-top: 30px;
+}

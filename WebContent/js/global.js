@@ -55,29 +55,13 @@ $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
   if(isServerError)
     $modalSmall.find('.modal-dialog').html(jqXHR.responseText);
   else
-    $modalSmall.find('.modal-dialog').html(getGenericErrorModal());
+    $modalSmall.find('.modal-dialog').html(soil.getGenericErrorModal());
   
   $modalSmall.modal('show');
   
 });
 
 
-function getGenericErrorModal() {
-  
-  return '<div class="modal-content">' +
-
-            '<div class="modal-header">' +
-              '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-              '<h4 class="modal-title">Error</h4>' +
-            '</div>' +
-            
-            '<div class="modal-body">' +
-             '<p>Something is goofed up. If this keeps happening please submit a bug report.</p>' +
-            '</div>' +
-            
-            '<div class="modal-footer">' +
-              '<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>' +
-            '</div>' +
-            
-          '</div>';
-}
+document.querySelector('#submit-bug-report').addEventListener('click', function() {
+  soil.popupCenter('https://gitreports.com/issue/soil-bugs/soil-and-pimp-live-web', 'Submit Bug Report', 650, 900);
+});
