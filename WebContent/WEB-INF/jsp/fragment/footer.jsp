@@ -25,7 +25,7 @@
             </a>
           </li> 
           <li>
-            <a href="https://github.com/soil-bugs/soil-and-pimp-live-web" target="_blank">
+            <a href="https://github.com/nypd/soil-and-pimp-live-web" target="_blank">
               <i class="fa fa-lg fa-github" aria-hidden="true"></i> 
               <span>View Source</span>
             </a>
