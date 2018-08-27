@@ -28,10 +28,18 @@ public class EventTests {
     @BeforeClass
     public static void setUp() throws Exception {
 
-        Constructor<Event> constructor = (Constructor<Event>) Event.class.getDeclaredConstructors()[0];
-        constructor.setAccessible(true);
+        Constructor<Event>[] constructors = (Constructor<Event>[]) Event.class.getDeclaredConstructors();
 
-        event = constructor.newInstance();
+        for (int i = 0; i < constructors.length; i++) {
+            Constructor<Event> constructor = constructors[i];
+            int parameterCount = constructor.getParameterCount();
+
+            if (parameterCount > 0) continue;
+
+            constructor.setAccessible(true);
+            event = constructor.newInstance();
+        }
+
     }
 
     @Test
