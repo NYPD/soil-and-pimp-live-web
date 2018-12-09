@@ -1,8 +1,8 @@
 ##mysql.properties
-mysql.username=
+mysql.username=  
 mysql.password=
 
-##mailer.properties
+##mailer.properties (From "Signing into Google" - App passwords)
 mailer.dev.host=  
 mailer.dev.username=  
 mailer.dev.password=  
