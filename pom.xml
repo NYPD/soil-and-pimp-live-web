@@ -70,7 +70,7 @@
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
       <version>1.9.2</version>
-	</dependency>
+    </dependency>
     <dependency>
       <groupId>org.apache.tomcat.maven</groupId>
       <artifactId>tomcat7-maven-plugin</artifactId>
@@ -164,7 +164,7 @@
       <artifactId>google-api-services-oauth2</artifactId>
       <version>v2-rev134-1.23.0</version>
     </dependency>
-    
+
     <!-- Simple Java Mail -->
     <dependency>
       <groupId>org.simplejavamail</groupId>
