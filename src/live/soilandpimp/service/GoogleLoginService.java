@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
@@ -14,8 +15,10 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeResponseUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
@@ -41,7 +44,7 @@ import live.soilandpimp.util.AppConstants;
 
 @Service
 @GoogleLogin
-public class GoogleLoginService extends ApiLoginService {
+public class GoogleLoginService implements ApiLoginService {
 
     @Autowired
     private GoogleClientSecrets googleClientSecrets;
@@ -52,12 +55,15 @@ public class GoogleLoginService extends ApiLoginService {
     @Autowired
     private GoogleSessionBean googleSessionBean;
     @Autowired
+    private ApplicationContext applicationContext;
+    @Autowired
     private Environment springEnvironment;
     @Autowired
     private AdminService adminService;
 
     private static final String PROFILE_SCOPE = "profile";
     private static final String OPEN_ID_SCOPE = "openid";
+    private static final List<String> SCOPES = Arrays.asList(OPEN_ID_SCOPE, PROFILE_SCOPE);
 
     private static String GOOGLE_OAUTH_REDIRECT_URI;
     private static String CLIENT_ID;
@@ -69,10 +75,9 @@ public class GoogleLoginService extends ApiLoginService {
     public String getAuthenticationRequestUrl() {
 
         String stateToken = this.getStateToken();
-        GoogleAuthorizationCodeRequestUrl googleAuthorizationCodeRequestUrl = new GoogleAuthorizationCodeRequestUrl(
-                                                                                                                    googleClientSecrets,
+        GoogleAuthorizationCodeRequestUrl googleAuthorizationCodeRequestUrl = new GoogleAuthorizationCodeRequestUrl(googleClientSecrets,
                                                                                                                     GOOGLE_OAUTH_REDIRECT_URI,
-                                                                                                                    Arrays.asList(OPEN_ID_SCOPE, PROFILE_SCOPE));
+                                                                                                                    SCOPES);
 
         googleAuthorizationCodeRequestUrl.setState(stateToken);
 
@@ -108,20 +113,14 @@ public class GoogleLoginService extends ApiLoginService {
         try {
 
             String code = authorizationCodeResponseUrl.getCode();
-            GoogleTokenResponse googleTokenResponse = new GoogleAuthorizationCodeTokenRequest(
-                                                                                              netHttpTransport,
+            GoogleTokenResponse googleTokenResponse = new GoogleAuthorizationCodeTokenRequest(netHttpTransport,
                                                                                               googleJacksonFactory,
                                                                                               CLIENT_ID,
                                                                                               CLIENT_SECRET,
                                                                                               code,
                                                                                               GOOGLE_OAUTH_REDIRECT_URI).execute();
 
-            GoogleCredential googleCredential = new GoogleCredential.Builder()
-                    .setJsonFactory(googleJacksonFactory)
-                    .setTransport(netHttpTransport)
-                    .setClientSecrets(googleClientSecrets)
-                    .build()
-                    .setFromTokenResponse(googleTokenResponse);
+            GoogleCredential googleCredential = new GoogleCredential.Builder().setJsonFactory(googleJacksonFactory).setTransport(netHttpTransport).setClientSecrets(googleClientSecrets).build().setFromTokenResponse(googleTokenResponse);
 
             googleSessionBean.setGoogleCredential(googleCredential);
 
@@ -136,8 +135,7 @@ public class GoogleLoginService extends ApiLoginService {
     public User getSoilAndPimpUser() {
 
         GoogleCredential googleCredential = googleSessionBean.getGoogleCredential();
-        Oauth2 oauth2 = new Oauth2.Builder(
-                                           netHttpTransport,
+        Oauth2 oauth2 = new Oauth2.Builder(netHttpTransport,
                                            googleJacksonFactory,
                                            googleCredential).setApplicationName(AppConstants.APPLICATION_NAME).build();
 
@@ -149,8 +147,7 @@ public class GoogleLoginService extends ApiLoginService {
 
             User user = adminService.getUser(ApiType.GOOGLE, apiUserId);
 
-            if (user == null)
-                return null;
+            if (user == null) return null;
 
             user.setUserProfilePicture(profilePictureUrl);
 
@@ -176,7 +173,9 @@ public class GoogleLoginService extends ApiLoginService {
     @Override
     public void reAuthenticateUser(HttpServletRequest request, HttpServletResponse response) {
 
-        boolean isAjax = this.isHttpServletRequestAjax(request);
+        Object[] restControllers = applicationContext.getBeansWithAnnotation(RestController.class).values().toArray();
+
+        boolean isAjax = this.isHttpServletRequestAjax(restControllers, request);
         if (isAjax) throw new NoUserInSessionException4Ajax();
 
         try {
