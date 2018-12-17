@@ -23,6 +23,14 @@ public class LogbackConfiguration {
     private final String encoderPattern = "%d{[yyyy-MM-dd HH:mm:ss.SSS]} [%-5level] \\(%F{0}:%M\\(\\):%L\\) - %msg%n";
     private final String filePattern = "/tomcat/logs/" + AppConstants.PROJECT_NAME + "/goddess.%d{yyyy-MM-dd}.log";
     private final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+    private final PatternLayoutEncoder defaultPatternLayout;
+
+    {
+        defaultPatternLayout = new PatternLayoutEncoder();
+        defaultPatternLayout.setContext(loggerContext);
+        defaultPatternLayout.setPattern(encoderPattern);
+        defaultPatternLayout.start();
+    }
 
     @Bean
     @DevelopmentProfile
@@ -31,7 +39,7 @@ public class LogbackConfiguration {
 
         ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();
         consoleAppender.setName("console");
-        consoleAppender.setEncoder(getDefaultPattern());
+        consoleAppender.setEncoder(defaultPatternLayout);
         consoleAppender.setContext(loggerContext);
         consoleAppender.start();
 
@@ -55,7 +63,7 @@ public class LogbackConfiguration {
         timeBasedRollingPolicy.setContext(loggerContext);
         timeBasedRollingPolicy.start();
 
-        rollingFileAppender.setEncoder(getDefaultPattern());
+        rollingFileAppender.setEncoder(defaultPatternLayout);
         rollingFileAppender.setRollingPolicy(timeBasedRollingPolicy);
         rollingFileAppender.start();
 
@@ -77,7 +85,7 @@ public class LogbackConfiguration {
         smtpAppender.setSMTPPort(25);
 
         smtpAppender.setAsynchronousSending(false);
-        smtpAppender.setLayout(getDefaultPattern().getLayout());
+        smtpAppender.setLayout(defaultPatternLayout.getLayout());
 
         smtpAppender.start();
 
@@ -85,14 +93,4 @@ public class LogbackConfiguration {
 
     }
 
-    private PatternLayoutEncoder getDefaultPattern() {
-
-        PatternLayoutEncoder patternLayoutEncoder = new PatternLayoutEncoder();
-        patternLayoutEncoder.setContext(loggerContext);
-        patternLayoutEncoder.setPattern(encoderPattern);
-        patternLayoutEncoder.start();
-
-        return patternLayoutEncoder;
-
-    }
 }
