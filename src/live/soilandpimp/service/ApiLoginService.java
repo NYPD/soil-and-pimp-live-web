@@ -21,7 +21,7 @@ public interface ApiLoginService {
      * 
      * @return The authentication request String URL
      */
-    public abstract String getAuthenticationRequestUrl();
+    public String getAuthenticationRequestUrl();
 
     /**
      * Verifies the response from the API server and retrieves the token needed to make API calls.
@@ -30,7 +30,7 @@ public interface ApiLoginService {
      * 
      * @param request - The HttpServletRequest from the API server
      */
-    public abstract void verifyAuthenticationResponse(HttpServletRequest request);
+    public void verifyAuthenticationResponse(HttpServletRequest request);
 
     /**
      * Return the corresponding Moe Sounds user using the unique API's user id. If no user is found null is returned.
@@ -39,7 +39,7 @@ public interface ApiLoginService {
      * 
      * @return Moe Sounds User
      */
-    public abstract User getSoilAndPimpUser();
+    public User getSoilAndPimpUser();
 
     /**
      * Creates API specific cookies to be able to authenticate the user again without having them login again and sets them
@@ -47,7 +47,7 @@ public interface ApiLoginService {
      * 
      * @param response - The {@link HttpServletResponse} to set cookies into
      */
-    public abstract void createUserCookies(HttpServletResponse response);
+    public void createUserCookies(HttpServletResponse response);
 
     /**
      * Should redirect the user to wherever the authentication process begins and try to authenticate the user again
@@ -55,7 +55,7 @@ public interface ApiLoginService {
      * 
      * @param response
      */
-    public abstract void reAuthenticateUser(HttpServletRequest request, HttpServletResponse response);
+    public void reAuthenticateUser(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * Helper method provided to determine whether a request was an ajax call or not. Supply an array of all the rest
