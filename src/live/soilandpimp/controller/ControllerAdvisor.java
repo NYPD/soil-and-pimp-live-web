@@ -70,7 +70,7 @@ public class ControllerAdvisor {
     @ExceptionHandler(value = UnauthorizedUserException.class)
     public ModelAndView handleUnauthorizedUserException(UnauthorizedUserException exception) {
 
-        logger.info("Unauthorized user attempted to login as an admin from > " + exception.getIpAddress());
+        logger.error("Unauthorized user attempted to login as an admin from > " + exception.getIpAddress());
 
         return new ModelAndView("admin");
     }
