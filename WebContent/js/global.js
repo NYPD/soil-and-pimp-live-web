@@ -4,7 +4,6 @@ const $modalLarge = $('#global-large-modal');
 const $modalMedium = $('#global-medium-modal');
 const $modalSmall = $('#global-small-modal');
 const $errorModal = $('#error-modal');
-
 const $allModals = $('.modal');
 
 
@@ -22,8 +21,10 @@ ritsu.initialize({
   useBootstrap3Stlying: true
 });
 
-//Listeners
 
+NProgress.configure({showSpinner: false});
+
+//Listeners
 if(subscribeButton !== null) {
   
   subscribeButton.addEventListener('click', function () {
@@ -59,8 +60,11 @@ $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
   
   $modalSmall.modal('show');
   
-});
-
+}).ajaxStart(function() {
+  NProgress.start();
+}).ajaxStop(function() {
+  NProgress.done();
+})
 
 document.querySelector('#submit-bug-report').addEventListener('click', function() {
   soil.popupCenter('https://gitreports.com/issue/soil-bugs/soil-and-pimp-live-web', 'Submit Bug Report', 650, 900);

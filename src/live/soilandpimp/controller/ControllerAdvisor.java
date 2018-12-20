@@ -28,7 +28,8 @@ public class ControllerAdvisor {
     public ModelAndView handleLoginIOException(LoginIOException exception) {
 
         ModelAndView modelAndView = new ModelAndView("login");
-        modelAndView.addObject("loginErrorMessage", "The Internet does not seem to work anymore, try again at a later time.");
+        modelAndView.addObject("loginErrorMessage",
+                               "The Internet does not seem to work anymore, try again at a later time.");
 
         return modelAndView;
     }
@@ -41,30 +42,35 @@ public class ControllerAdvisor {
         String errorUri = exception.getErrorUri();
 
         logger.error("Error authorizing the Google API response. \n" +
-                "Error code: " + error + "\n" +
-                "Description: " + errorDescription + "\n" +
-                "For more information visit: " + errorUri);
+                     "Error code: " + error + "\n" +
+                     "Description: " + errorDescription + "\n" +
+                     "For more information visit: " + errorUri);
 
         ModelAndView modelAndView = new ModelAndView("login");
         modelAndView.addObject("loginErrorMessage", "Can't login you in if you don't grant "
-                + AppConstants.APPLICATION_NAME
-                + " minimal permissions bro. Unless something horrible went wrong try again later.");
+                                                    + AppConstants.APPLICATION_NAME
+                                                    + " minimal permissions bro. Unless something horrible went wrong try again later.");
 
         return modelAndView;
     }
 
     @ExceptionHandler(value = InvalidStateTokenException.class)
-    public ModelAndView handleInvalidStateTokenException(InvalidStateTokenException exception) {
+    public ModelAndView handleInvalidStateTokenException(InvalidStateTokenException invalidStateTokenException) {
 
-        logger.error("State tokens did not match for attempted user sign on");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Potentially naughty user with the IP of: ");
+        stringBuilder.append(invalidStateTokenException.getIpAddress());
+        stringBuilder.append("attempted to log in with mismatching state codes");
 
-        return new ModelAndView("admin");
+        logger.error(stringBuilder.toString());
+
+        return new ModelAndView("redirect:/admin");
     }
 
     @ExceptionHandler(value = UnauthorizedUserException.class)
     public ModelAndView handleUnauthorizedUserException(UnauthorizedUserException exception) {
 
-        logger.info("Unauthorized user attempted to login as an admin from > " + exception.getIpAddress());
+        logger.error("Unauthorized user attempted to login as an admin from > " + exception.getIpAddress());
 
         return new ModelAndView("admin");
     }

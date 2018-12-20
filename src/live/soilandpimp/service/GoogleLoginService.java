@@ -108,7 +108,7 @@ public class GoogleLoginService implements ApiLoginService {
         String sessionStateToken = googleSessionBean.getGoogleStateToken();
 
         boolean notSameStateToken = !StringUtils.equals(googleStateToken, sessionStateToken);
-        if (notSameStateToken) throw new InvalidStateTokenException();
+        if (notSameStateToken) throw new InvalidStateTokenException(request);
 
         try {
 
