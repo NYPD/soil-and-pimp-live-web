@@ -7,4 +7,5 @@
 
 <link href="${context}/css/vendor/bootstrap.min.css?v=${projectVersion}" rel="stylesheet">
 <link href="${context}/css/vendor/font-awesome.min.css?v=${projectVersion}" rel="stylesheet">
+<link href="${context}/css/vendor/nprogress.css?v=${projectVersion}" rel="stylesheet">
 <link href="${context}/css/global.css?v=${projectVersion}" rel="stylesheet">
