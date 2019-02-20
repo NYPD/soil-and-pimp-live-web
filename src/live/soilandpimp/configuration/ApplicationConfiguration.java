@@ -59,9 +59,7 @@ public class ApplicationConfiguration {
 
         String[] activeProfiles = springEnvironment.getActiveProfiles();
 
-        boolean isDevelopment = Arrays.stream(activeProfiles)
-                                      .filter(x -> AppConstants.DEVELOPMENT_PROFILE.equals(x))
-                                      .findAny().orElse(null) != null;
+        boolean isDevelopment = Arrays.stream(activeProfiles).anyMatch(x -> AppConstants.DEVELOPMENT_PROFILE.equals(x));
 
         Level loggingLevel = isDevelopment? Level.DEBUG : Level.INFO;
 
