@@ -13,6 +13,16 @@
   height: 100%;
 }
 
+.event-container .event .event-info img {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .event-container .event .event-info {
+    padding-bottom: 15px;
+  }
+}
+
 .event-container .event .event-info .event-name {
   width: 100%;
   margin-bottom: 15px;
