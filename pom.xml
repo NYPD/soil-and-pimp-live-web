@@ -5,7 +5,7 @@
   <groupId>live.soilandpimp</groupId>
   <artifactId>soil-and-pimp-live-web</artifactId>
   <name>Soil and Pimp Live Web</name>
-  <version>0.2.5</version>
+  <version>0.2.6</version>
   <packaging>war</packaging>
   <inceptionYear>2018</inceptionYear>
 
@@ -45,7 +45,7 @@
   </developers>
 
   <properties>
-    <spring.version>5.2.4.RELEASE</spring.version>
+    <spring.version>5.2.20.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -105,6 +105,19 @@
       <artifactId>spring-data-jpa</artifactId>
       <version>2.0.12.RELEASE</version>
     </dependency>
+    
+    <!-- javax.xml (removed in java 11) -->
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>2.3.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>2.3.3</version>
+      <scope>runtime</scope>
+    </dependency>
 
     <!-- MySQL -->
     <dependency>
@@ -124,7 +137,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>5.2.16.Final</version>
+      <version>5.3.20.Final</version>
     </dependency>
 
     <!-- Logback -->
@@ -181,7 +194,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>

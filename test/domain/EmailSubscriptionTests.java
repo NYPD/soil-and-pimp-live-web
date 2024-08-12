@@ -1,7 +1,6 @@
 package domain;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -12,10 +11,8 @@ public class EmailSubscriptionTests {
     @Test
     public void shouldContsturctNewEmailSubscription() {
         String email = "a@a.a";
-        new EmailSubscription(email);
-
-        System.out.println(new BigInteger(130, new SecureRandom()).toString(32));
-
+        EmailSubscription emailSubscription = new EmailSubscription(email);
+        assertNotNull(emailSubscription);
     }
 
     @Test(expected = IllegalArgumentException.class)
