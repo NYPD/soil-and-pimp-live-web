@@ -45,7 +45,7 @@
   </developers>
 
   <properties>
-    <spring.version>5.2.20.RELEASE</spring.version>
+    <spring.version>5.3.37</spring.version>
     <maven.compiler.release>17</maven.compiler.release>
   </properties>
 
@@ -65,7 +65,7 @@
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-jsp-api</artifactId>
-      <version>9.0.2</version>
+      <version>9.0.93</version>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
@@ -190,6 +190,12 @@
       <artifactId>utils-mail-dkim</artifactId>
       <version>1.1.11</version>
     </dependency>
+    
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <version>1.14.18</version>
+    </dependency>
 
     <!-- JUnit Tests -->
     <dependency>
@@ -208,13 +214,6 @@
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>5.12.0</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>net.bytebuddy</groupId>
-      <artifactId>byte-buddy</artifactId>
-      <version>1.14.18</version>
       <scope>test</scope>
     </dependency>
 

@@ -41,7 +41,7 @@ public class DefaultMainService implements MainService {
         List<Event> activeEvents = new ArrayList<>();
         List<Event> upcomingEvents = new ArrayList<>();
 
-        Iterable<Event> allEvents = eventsRepository.findAll();
+        Iterable<Event> allEvents = this.eventsRepository.findAll();
 
         for (Event event : allEvents) {
 
@@ -62,14 +62,14 @@ public class DefaultMainService implements MainService {
     @Override
     public List<Event> getPastEvents() {
 
-        Iterable<Event> allEvents = eventsRepository.findAll();
+        Iterable<Event> allEvents = this.eventsRepository.findAll();
 
         List<Event> pastEvents = new ArrayList<>();
 
         for (Event event : allEvents)
             if (!event.isEventUpcoming()) pastEvents.add(event);
 
-        Collections.sort(pastEvents, Event.FIRST_SCHEDULE_DATE_ORDER_DESC);
+        if (!pastEvents.isEmpty()) Collections.sort(pastEvents, Event.FIRST_SCHEDULE_DATE_ORDER_DESC);
 
         return pastEvents;
     }
@@ -78,7 +78,7 @@ public class DefaultMainService implements MainService {
     public List<Event> getAllEvents() {
 
         List<Event> allEvents = new ArrayList<>();
-        eventsRepository.findAll().forEach(event -> allEvents.add(event));
+        this.eventsRepository.findAll().forEach(event -> allEvents.add(event));
 
         return allEvents;
     }
@@ -88,13 +88,13 @@ public class DefaultMainService implements MainService {
 
         if (eventKey == null) return null;
 
-        Optional<Event> event = eventsRepository.findById(eventKey);
-        return event.isPresent()? event.get() : null;
+        Optional<Event> event = this.eventsRepository.findById(eventKey);
+        return event.isPresent() ? event.get() : null;
     }
 
     @Override
     public void deleteEvent(String eventKey) {
-        eventsRepository.deleteById(eventKey);
+        this.eventsRepository.deleteById(eventKey);
     }
 
     @Override
@@ -107,12 +107,12 @@ public class DefaultMainService implements MainService {
         if (isNewEvent) {
             event = new Event(eventForm);
         } else {
-            event = eventsRepository.findById(eventForm.getEventKey()).get();
+            event = this.eventsRepository.findById(eventForm.getEventKey()).get();
             event.updateEvent(eventForm);
-            eventsRepository.save(event);
+            this.eventsRepository.save(event);
         }
 
-        eventsRepository.save(event);
+        this.eventsRepository.save(event);
 
         return event;
     }
@@ -122,26 +122,21 @@ public class DefaultMainService implements MainService {
     public void addEmailSubscription(String emailAddress) {
 
         EmailSubscription emailSubscription = new EmailSubscription(emailAddress);
-        emailRepository.save(emailSubscription);
+        this.emailRepository.save(emailSubscription);
 
         String subject = "SOIL & \"PIMP\" LIVE email verification";
         String htmlText = this.verifyEmailMarkup(emailSubscription);
 
-        Email email = EmailBuilder.startingBlank()
-                                  .from("events@soilandpimp.live")
-                                  .to(emailAddress)
-                                  .withSubject(subject)
-                                  .withHTMLText(htmlText)
-                                  .buildEmail();
+        Email email = EmailBuilder.startingBlank().from("events@soilandpimp.live").to(emailAddress).withSubject(subject).withHTMLText(htmlText).buildEmail();
 
-        mailer.sendMail(email);
+        this.mailer.sendMail(email);
 
     }
 
     @Override
     public boolean verifyEmailSubscription(String emailAddress, String userVerificationToken) {
 
-        Optional<EmailSubscription> optionalEmailSubscription = emailRepository.findById(emailAddress);
+        Optional<EmailSubscription> optionalEmailSubscription = this.emailRepository.findById(emailAddress);
 
         //There is not even this email address in the DB
         if (optionalEmailSubscription.isPresent() == false) return false;
@@ -149,39 +144,39 @@ public class DefaultMainService implements MainService {
         EmailSubscription emailSubscription = optionalEmailSubscription.get();
 
         boolean emailVerified = emailSubscription.verifyEmailAddress(userVerificationToken);
-        if (emailVerified) emailRepository.save(emailSubscription);
+        if (emailVerified) this.emailRepository.save(emailSubscription);
 
         return emailVerified;
     }
 
     @Override
     public void emailUnsubscribe(String emailAddress) {
-        boolean exists = emailRepository.existsById(emailAddress);
-        if (exists) emailRepository.deleteById(emailAddress);
+        boolean exists = this.emailRepository.existsById(emailAddress);
+        if (exists) this.emailRepository.deleteById(emailAddress);
     }
 
     private String verifyEmailMarkup(EmailSubscription emailSubscription) {
-        
-        List<String> activeProfiles = Arrays.asList(environment.getActiveProfiles());
+
+        List<String> activeProfiles = Arrays.asList(this.environment.getActiveProfiles());
         boolean isProduction = activeProfiles.contains(AppConstants.PRODUCTION_PROFILE);
 
-        String url = isProduction? AppConstants.PROD_URL : AppConstants.DEV_URL;
+        String url = isProduction ? AppConstants.PROD_URL : AppConstants.DEV_URL;
         String emailAddress = emailSubscription.getEmailAddress();
         String verificationToken = emailSubscription.getVerificationToken();
 
         StringBuffer stringBuffer = new StringBuffer();
-        
+
         stringBuffer.append("<!DOCTYPE html>");
         stringBuffer.append("<html>");
         stringBuffer.append("<head>");
         stringBuffer.append("<meta charset=\"utf-8\">");
         stringBuffer.append("</head>");
         stringBuffer.append("<body>");
-        
+
         stringBuffer.append("<p>");
         stringBuffer.append("We need to verify your email to complete your SOIL & \"PIMP\" LIVE subscription.");
         stringBuffer.append("</p>");
-        
+
         //TODO finish dumb button
         stringBuffer.append("<a style=\"color:#fff;background-color:#449d44;border-color: #398439;"
                             + "text-decoration: none;padding: 6px 12px;font-size:16px;font-weight:400;border-radius:4px;"
@@ -197,7 +192,7 @@ public class DefaultMainService implements MainService {
         stringBuffer.append("<br>");
         stringBuffer.append("ありがと.");
         stringBuffer.append("</p>");
-        
+
         stringBuffer.append("</body>");
         stringBuffer.append("</html>");
 

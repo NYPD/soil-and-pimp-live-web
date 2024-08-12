@@ -70,20 +70,20 @@ public class Event {
 
         this.updateEvent(eventForm);
 
-        if (name == null)
-            throw new IllegalArgumentException("name can't be null");
+        if (this.name == null) throw new IllegalArgumentException("name can't be null");
 
         // This exception should never happen, MD5 should always be present
         try {
 
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.update(name.getBytes());
+            messageDigest.update(this.name.getBytes());
             byte[] digest = messageDigest.digest();
 
             String eventKeyHash = DatatypeConverter.printHexBinary(digest);
 
-            eventKey = eventKeyHash;
-        } catch (NoSuchAlgorithmException e) {
+            this.eventKey = eventKeyHash;
+        }
+        catch (NoSuchAlgorithmException e) {
             throw new AssertionError(e);
         }
 
@@ -92,16 +92,16 @@ public class Event {
     // Modified Accessors ********************************************
     public void updateEvent(EventForm eventForm) {
 
-        name = eventForm.getName();
-        eventUrl = eventForm.getEventUrl();
-        socialNetworkingTitle = eventForm.getSocialNetworkingTitle();
-        memo = eventForm.getMemo();
-        eventUrl = eventForm.getEventUrl();
-        jvcUrl = eventForm.getJvcUrl();
-        openDate = eventForm.getOpenDate();
+        this.name = eventForm.getName();
+        this.eventUrl = eventForm.getEventUrl();
+        this.socialNetworkingTitle = eventForm.getSocialNetworkingTitle();
+        this.memo = eventForm.getMemo();
+        this.eventUrl = eventForm.getEventUrl();
+        this.jvcUrl = eventForm.getJvcUrl();
+        this.openDate = eventForm.getOpenDate();
 
-        if (schedules != null) schedules.clear();
-        schedules = Schedule.createSchedules(eventForm.getSchedules());
+        if (this.schedules != null) this.schedules.clear();
+        this.schedules = Schedule.createSchedules(eventForm.getSchedules());
     }
 
     /**
@@ -127,29 +127,24 @@ public class Event {
         //Line Islands islands lol
         LocalDate latestCountryDate = now.toInstant().atZone(ZoneId.of("UTC+14")).toLocalDate();
 
-        LocalDate firstScheduleDate = schedules.get(0).getDate();
-        LocalDate lastScheduleDate = schedules.get(schedules.size() - 1).getDate();
+        LocalDate firstScheduleDate = this.schedules.get(0).getDate();
+        LocalDate lastScheduleDate = this.schedules.get(this.schedules.size() - 1).getDate();
 
-        boolean eventIsActiveInBakerIsland =
-                (earliestCountryDate.isEqual(firstScheduleDate) || earliestCountryDate.isAfter(firstScheduleDate))
-                &&
-                (earliestCountryDate.isEqual(lastScheduleDate) || earliestCountryDate.isBefore(lastScheduleDate));
+        boolean eventIsActiveInBakerIsland = (earliestCountryDate.isEqual(firstScheduleDate) || earliestCountryDate.isAfter(firstScheduleDate))
+                                             && (earliestCountryDate.isEqual(lastScheduleDate) || earliestCountryDate.isBefore(lastScheduleDate));
 
-        boolean eventIsActiveInLineIslands =
-                (latestCountryDate.isEqual(firstScheduleDate) || latestCountryDate.isAfter(firstScheduleDate))
-                &&
-                (latestCountryDate.isEqual(lastScheduleDate) || latestCountryDate.isBefore(lastScheduleDate));
+        boolean eventIsActiveInLineIslands = (latestCountryDate.isEqual(firstScheduleDate) || latestCountryDate.isAfter(firstScheduleDate))
+                                             && (latestCountryDate.isEqual(lastScheduleDate) || latestCountryDate.isBefore(lastScheduleDate));
 
         if (eventIsActiveInBakerIsland || eventIsActiveInLineIslands)
             return true;
-        else
-            return false;
+        else return false;
 
     }
 
     public boolean isEventUpcoming() {
 
-        if (schedules == null || schedules.size() == 0) return false;
+        if (this.schedules == null || this.schedules.size() == 0) return false;
 
         Collections.sort(this.getSchedules(), Schedule.DATE_ORDER);
 
@@ -158,7 +153,7 @@ public class Event {
         //Line Islands islands lol
         LocalDate latestCountryDate = now.toInstant().atZone(ZoneId.of("UTC+14")).toLocalDate();
 
-        LocalDate firstScheduleDate = schedules.get(0).getDate();
+        LocalDate firstScheduleDate = this.schedules.get(0).getDate();
 
         return latestCountryDate.isBefore(firstScheduleDate);
 
@@ -176,7 +171,7 @@ public class Event {
         //Line Islands islands lol
         LocalDate latestCountryDate = now.toInstant().atZone(ZoneId.of("UTC+14")).toLocalDate();
 
-        for (Schedule schedule : schedules) {
+        for (Schedule schedule : this.schedules) {
 
             LocalDate scheduleDate = schedule.getDate();
 
@@ -193,48 +188,48 @@ public class Event {
 
     // Default Accessors *********************************************
     public String getEventKey() {
-        return eventKey;
+        return this.eventKey;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getSocialNetworkingTitle() {
-        return socialNetworkingTitle;
+        return this.socialNetworkingTitle;
     }
 
     public String getMemo() {
-        return memo;
+        return this.memo;
     }
 
     public String getEventUrl() {
-        return eventUrl;
+        return this.eventUrl;
     }
 
     public String getJvcUrl() {
-        return jvcUrl;
+        return this.jvcUrl;
     }
 
     public LocalDateTime getOpenDate() {
-        return openDate;
+        return this.openDate;
     }
 
     public List<Schedule> getSchedules() {
-        return schedules;
+        return this.schedules;
     }
 
     public boolean isScheduleChange() {
-        return scheduleChange;
+        return this.scheduleChange;
     }
 
     public boolean isBroadcast() {
-        return broadcast;
+        return this.broadcast;
     }
 
     @Override
     public String toString() {
-        return "Event [eventKey=" + eventKey + ", name=" + name + ", schedules=" + schedules + "]";
+        return "Event [eventKey=" + this.eventKey + ", name=" + this.name + ", schedules=" + this.schedules + "]";
     }
 
     // Comparators ***************************************************
@@ -249,12 +244,19 @@ public class Event {
             Collections.sort(e1Schedules, Schedule.DATE_ORDER);
             Collections.sort(e2Schedules, Schedule.DATE_ORDER);
 
-            if ((e1Schedules == null || e1Schedules.size() == 0) && (e2Schedules != null && e2Schedules.size() > 0))
-                return 1;
-            else if ((e1Schedules != null && e1Schedules.size() > 0) && (e2Schedules == null || e2Schedules.size() == 0))
-                return -1;
+            boolean e1SchedulesEmpty = e1Schedules == null || e1Schedules.isEmpty();
+            boolean e2SchedulesEmpty = e1Schedules == null || e2Schedules.isEmpty();
 
-            return e1Schedules.get(0).getDate().compareTo(e2Schedules.get(0).getDate());
+            if (e1SchedulesEmpty && e2SchedulesEmpty)
+                return 0;
+            else if (e1SchedulesEmpty && !e2SchedulesEmpty)
+                return -1;
+            else if (!e1SchedulesEmpty && e2SchedulesEmpty) return 1;
+
+            LocalDate e1Date = e1Schedules.get(0).getDate();
+            LocalDate e2Date = e2Schedules.get(0).getDate();
+
+            return e1Date.compareTo(e2Date);
         }
     }
 
@@ -269,12 +271,20 @@ public class Event {
             Collections.sort(e1Schedules, Schedule.DATE_ORDER);
             Collections.sort(e2Schedules, Schedule.DATE_ORDER);
 
-            if ((e1Schedules == null || e1Schedules.size() == 0) && (e2Schedules != null && e2Schedules.size() > 0))
-                return -1;
-            else if ((e1Schedules != null && e1Schedules.size() > 0) && (e2Schedules == null || e2Schedules.size() == 0))
-                return 1;
+            boolean e1SchedulesEmpty = e1Schedules == null || e1Schedules.isEmpty();
+            boolean e2SchedulesEmpty = e1Schedules == null || e2Schedules.isEmpty();
 
-            return e2Schedules.get(0).getDate().compareTo(e1Schedules.get(0).getDate());
+            if (e1SchedulesEmpty && e2SchedulesEmpty)
+                return 0;
+            else if (e1SchedulesEmpty && !e2SchedulesEmpty)
+                return -1;
+            else if (!e1SchedulesEmpty && e2SchedulesEmpty) return 1;
+
+            LocalDate e1Date = e1Schedules.get(0).getDate();
+            LocalDate e2Date = e2Schedules.get(0).getDate();
+
+            return e2Date.compareTo(e1Date);
+
         }
     }
 

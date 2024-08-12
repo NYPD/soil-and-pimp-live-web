@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -23,6 +24,7 @@ import live.soilandpimp.model.EventForm;
 public class EventTests {
 
     private static Event event;
+    private static Event event2;
 
     @SuppressWarnings("unchecked")
     @BeforeClass
@@ -38,6 +40,7 @@ public class EventTests {
 
             constructor.setAccessible(true);
             event = constructor.newInstance();
+            event2 = constructor.newInstance();
         }
 
     }
@@ -48,9 +51,7 @@ public class EventTests {
         LocalDate currentDate = LocalDate.now();
 
         Schedule earlySchedule = mock(Schedule.class);
-        when(earlySchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear(),
-                                                              currentDate.getMonth(),
-                                                              currentDate.getDayOfMonth()));
+        when(earlySchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear(), currentDate.getMonth(), currentDate.getDayOfMonth()));
 
         List<Schedule> schedules = new ArrayList<>(Arrays.asList(earlySchedule));
 
@@ -67,9 +68,7 @@ public class EventTests {
         LocalDate currentDate = LocalDate.now();
 
         Schedule earlySchedule = mock(Schedule.class);
-        when(earlySchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear() + 1,
-                                                              currentDate.getMonth(),
-                                                              currentDate.getDayOfMonth()));
+        when(earlySchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear() + 1, currentDate.getMonth(), currentDate.getDayOfMonth()));
 
         List<Schedule> schedules = new ArrayList<>(Arrays.asList(earlySchedule));
 
@@ -87,9 +86,7 @@ public class EventTests {
         LocalDate currentDate = LocalDate.now();
 
         Schedule earlySchedule = mock(Schedule.class);
-        when(earlySchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear() - 1,
-                                                              currentDate.getMonth(),
-                                                              currentDate.getDayOfMonth()));
+        when(earlySchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear() - 1, currentDate.getMonth(), currentDate.getDayOfMonth()));
 
         List<Schedule> schedules = new ArrayList<>(Arrays.asList(earlySchedule));
 
@@ -107,13 +104,9 @@ public class EventTests {
         LocalDate currentDate = LocalDate.now();
 
         Schedule pastSchedule = mock(Schedule.class);
-        when(pastSchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear() - 1,
-                                                             currentDate.getMonth(),
-                                                             currentDate.getDayOfMonth()));
+        when(pastSchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear() - 1, currentDate.getMonth(), currentDate.getDayOfMonth()));
         Schedule activeSchedule = mock(Schedule.class);
-        when(activeSchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear(),
-                                                               currentDate.getMonth(),
-                                                               currentDate.getDayOfMonth()));
+        when(activeSchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear(), currentDate.getMonth(), currentDate.getDayOfMonth()));
 
         List<Schedule> schedules = new ArrayList<>(Arrays.asList(pastSchedule, activeSchedule));
 
@@ -151,6 +144,72 @@ public class EventTests {
         assertThat(event.getEventKey(), is("beans"));
         event.updateEvent(eventForm);
         assertThat(event.getEventKey(), is("beans"));
+
+    }
+
+    @Test
+    public void shouldSortEventsDesc() throws Exception {
+
+        LocalDate currentDate = LocalDate.now();
+
+        Schedule oldSchedule = mock(Schedule.class);
+        when(oldSchedule.getDate()).thenReturn(LocalDate.of(currentDate.getYear() - 1, currentDate.getMonth(), currentDate.getDayOfMonth()));
+
+        Schedule currentSchedule = mock(Schedule.class);
+        when(currentSchedule.getDate()).thenReturn(currentDate);
+
+        List<Schedule> oldSchedules = new ArrayList<>(Arrays.asList(oldSchedule));
+        List<Schedule> currentSchedules = new ArrayList<>(Arrays.asList(currentSchedule));
+
+        Field field = event.getClass().getDeclaredField("schedules");
+        field.setAccessible(true);
+        field.set(event, oldSchedules);
+
+        Field field1 = event.getClass().getDeclaredField("eventKey");
+        field1.setAccessible(true);
+        field1.set(event, "beans");
+
+        Field field2 = event2.getClass().getDeclaredField("schedules");
+        field2.setAccessible(true);
+        field2.set(event2, currentSchedules);
+
+        Field field22 = event2.getClass().getDeclaredField("eventKey");
+        field22.setAccessible(true);
+        field22.set(event2, "butt");
+
+        List<Event> events = Arrays.asList(event, event2);
+
+        Collections.sort(events, Event.FIRST_SCHEDULE_DATE_ORDER_DESC);
+
+        assertThat(event.getEventKey(), is("beans"));
+
+    }
+
+    @Test
+    public void shouldSortEventsDescWithNoSchedulesWithoutBlowingUp() throws Exception {
+
+        List<Schedule> oldSchedules = new ArrayList<>();
+        List<Schedule> currentSchedules = new ArrayList<>();
+
+        Field field = event.getClass().getDeclaredField("schedules");
+        field.setAccessible(true);
+        field.set(event, oldSchedules);
+
+        Field field1 = event.getClass().getDeclaredField("eventKey");
+        field1.setAccessible(true);
+        field1.set(event, "beans");
+
+        Field field2 = event2.getClass().getDeclaredField("schedules");
+        field2.setAccessible(true);
+        field2.set(event2, currentSchedules);
+
+        Field field22 = event2.getClass().getDeclaredField("eventKey");
+        field22.setAccessible(true);
+        field22.set(event2, "butt");
+
+        List<Event> events = Arrays.asList(event, event2);
+
+        Collections.sort(events, Event.FIRST_SCHEDULE_DATE_ORDER_DESC);
 
     }
 }

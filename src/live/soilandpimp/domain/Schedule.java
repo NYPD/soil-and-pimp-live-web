@@ -48,14 +48,14 @@ public class Schedule {
     protected Schedule() {}
 
     public Schedule(ScheduleForm scheduleForm) {
-        date = scheduleForm.getDate();
-        enterTime = scheduleForm.getEnterTime();
-        startTime = scheduleForm.getStartTime();
-        prefecture = scheduleForm.getPrefecture();
-        place = scheduleForm.getPlace();
-        call = scheduleForm.getCall();
-        memo = scheduleForm.getMemo();
-        link = scheduleForm.getLink();
+        this.date = scheduleForm.getDate();
+        this.enterTime = scheduleForm.getEnterTime();
+        this.startTime = scheduleForm.getStartTime();
+        this.prefecture = scheduleForm.getPrefecture();
+        this.place = scheduleForm.getPlace();
+        this.call = scheduleForm.getCall();
+        this.memo = scheduleForm.getMemo();
+        this.link = scheduleForm.getLink();
     }
 
     // Modified Accessors *********************************************
@@ -81,40 +81,41 @@ public class Schedule {
 
     // Default Accessors *********************************************
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
 
     public String getEnterTime() {
-        return enterTime;
+        return this.enterTime;
     }
 
     public String getStartTime() {
-        return startTime;
+        return this.startTime;
     }
 
     public String getPrefecture() {
-        return prefecture;
+        return this.prefecture;
     }
 
     public String getPlace() {
-        return place;
+        return this.place;
     }
-    
+
     public String getCall() {
-        return call;
+        return this.call;
     }
 
     public String getMemo() {
-        return memo;
+        return this.memo;
     }
 
     public String getLink() {
-        return link;
+        return this.link;
     }
 
     @Override
     public String toString() {
-        return "Schedule [startTime=" + startTime + ", prefecture=" + prefecture + ", place=" + place + "]";
+        return "Schedule [scheduleId=" + this.scheduleId + ", date=" + this.date + ", startTime=" + this.startTime + ", prefecture=" + this.prefecture
+               + ", place=" + this.place + "]";
     }
 
     // Comparators ***************************************************
@@ -128,8 +129,7 @@ public class Schedule {
 
             if (s1Date == null && s2Date != null)
                 return -1;
-            else if (s1Date != null && s2Date == null)
-                return 1;
+            else if (s1Date != null && s2Date == null) return 1;
 
             return s1Date.compareTo(s2Date);
         }
