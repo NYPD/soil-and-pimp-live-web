@@ -30,12 +30,6 @@
               <span>View Source</span>
             </a>
           </li> 
-          <li>
-            <a class="cursor-pointer" id="submit-bug-report">
-              <i class="fa fa-lg fa-bug" aria-hidden="true"></i>
-              <span>Submit Bug Report</span>
-            </a>
-          </li> 
         </ul>
         
       </div>
